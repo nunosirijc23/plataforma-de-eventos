@@ -159,6 +159,10 @@ strong {
     margin: 15px 0;
 }
 
+.margin-bottom-row {
+    margin-bottom: 10px;
+}
+
 /* ----- Title ----- */
 .title--sbold {
     font-weight: 600;
