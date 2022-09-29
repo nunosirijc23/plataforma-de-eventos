@@ -1,5 +1,7 @@
 const { Router } = require('express');
 
+const menus = require('../middleware/users/menus');
+
 const user = Router();
 
 user.get('/login', (request, response) => {
@@ -14,15 +16,17 @@ user.get('/register', (request, response) => {
     })
 }) // GET REGISTER PAGE
 
-user.get('/events', (request, response) => {
+user.get('/events', menus, (request, response) => {
     response.render('user/index', {
-        title: 'Eventos'
+        title: 'Eventos',
+        menus: request.menus
     })
 }) // GET EVENTS PAGE
 
-user.get('/my-tickets', (request, response) => {
+user.get('/my-tickets', menus, (request, response) => {
     response.render('user/my-tickets', {
-        title: 'Meus bilhetes'
+        title: 'Meus bilhetes',
+        menus: request.menus
     })
 }) // GET MY-TICKET PAGE
 

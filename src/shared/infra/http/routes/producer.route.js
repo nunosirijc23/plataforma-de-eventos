@@ -1,5 +1,7 @@
 const { Router } = require('express');
 
+const menus = require('../middleware/producer/menus'); 
+
 const producer = Router();
 
 producer.get('/login', (request, response) => {
@@ -14,15 +16,17 @@ producer.get('/register', (request, response) => {
     })
 }) // GET REGISTER PAGE
 
-producer.get('/dashboard', (request, response) => {
+producer.get('/dashboard', menus, (request, response) => {
     response.render('producer/index', {
-        title: 'Dashboard'
+        title: 'Dashboard',
+        menus: request.menus
     })
 }) // GET DASHBOARD PAGE
 
-producer.get('/my-events', (request, response) => {
+producer.get('/my-events', menus, (request, response) => {
     response.render('producer/my-events', {
-        title: 'Meus eventos'
+        title: 'Meus eventos',
+        menus: request.menus
     })
 }) // GET MY-EVENTS PAGE
 

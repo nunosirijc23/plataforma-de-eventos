@@ -62,15 +62,13 @@
                     </div>
                     <nav class="navbar-sidebar2">
                         <ul class="list-unstyled navbar__list">
-                            <li class="active">
-                                <a class="js-arrow" href="/users/events">
-                                    <i class="fas fa-calendar-alt"></i>Eventos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/users/my-tickets">
-                                    <i class="fas fa-ticket-alt"></i>Meus bilhetes</a>
-                            </li>
+                            <% menus.forEach(menu => { %> 
+                                <li <% if (menu.active) { %> class="active" <% } %> >
+                                    <a class="js-arrow" href="<%= menu.href %>">
+                                        <i class="fas fa-<%= menu.icon %> "></i><%= menu.text %> 
+                                    </a>
+                                </li>
+                            <% }) %>
                         </ul>
                     </nav>
                 </div>

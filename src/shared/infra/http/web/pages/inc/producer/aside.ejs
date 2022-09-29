@@ -17,15 +17,13 @@
             <nav class="navbar-mobile">
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
-                        <li class="active">
-                            <a href="/producers/dashboard">
-                                <i class="fa fa-line-chart" aria-hidden="true"></i>Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="/producers/my-events">
-                                <i class="fas fa-calendar-alt"></i>Meus eventos
-                            </a>
-                        </li>
+                        <% menus.forEach(menu => { %> 
+                            <li <% if (menu.active) { %> class="active" <% } %> >
+                                <a class="js-arrow" href="<%= menu.href %>">
+                                    <i class="fas fa-<%= menu.icon %> "></i><%= menu.text %> 
+                                </a>
+                            </li>
+                        <% }) %>
                     </ul>
                 </div>
             </nav>
@@ -42,16 +40,13 @@
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
-                        <li class="active">
-                            <a href="/producers/dashboard">
-                                <i class="fa fa-line-chart" aria-hidden="true"></i>Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/producers/my-events">
-                                <i class="fas fa-calendar-alt"></i>Meus eventos
-                            </a>
-                        </li>
+                        <% menus.forEach(menu => { %> 
+                            <li <% if (menu.active) { %> class="active" <% } %> >
+                                <a class="js-arrow" href="<%= menu.href %>">
+                                    <i class="fas fa-<%= menu.icon %> "></i><%= menu.text %> 
+                                </a>
+                            </li>
+                        <% }) %>
                     </ul>
                 </nav>
             </div>
