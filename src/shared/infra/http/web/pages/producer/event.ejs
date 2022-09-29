@@ -1,11 +1,11 @@
-<%- include('../inc/shared/head') -%>
+<%- include('./../inc/shared/head') -%>
         <!-- HEADER MOBILE-->
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="images/icon/logo.png" alt="CoolAdmin" />
+                        <a class="logo" href="/producers/dashboard">
+                            <img src="/images/icon/logo.png" alt="CoolAdmin" />
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -19,7 +19,7 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li class="active">
-                            <a href="my-events.html">
+                            <a href="/producers/my-events">
                                 <i class="fas fa-chevron-left"></i>Voltar
                             </a>
                         </li>
@@ -32,15 +32,15 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
-                    <img src="images/icon/logo.png" alt="Cool Admin" />
+                <a href="/producers/dashboard">
+                    <img src="/images/icon/logo.png" alt="Cool Admin" />
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="active">
-                            <a href="my-events.html">
+                            <a href="/producers/my-events">
                                 <i class="fas fa-chevron-left"></i>Voltar
                             </a>
                         </li>
@@ -52,7 +52,7 @@
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
-            <%- include('../inc/producer/navbar') -%>
+            <%- include('./../inc/producer/navbar') -%>
 
             <!-- MAIN CONTENT-->
             <div class="main-content">
@@ -60,7 +60,7 @@
                     <div class="container-fluid">
                         <div class="row" style="background-color: #F5F5F5; padding: 10px; margin-bottom: 15px;">
                             <div class="col-lg-4" style="height: 300px; width: 100px;">
-                                <img src="images/festa-musica.jpeg" class="img-fluid" alt="..."
+                                <img src="/images/festa-musica.jpeg" class="img-fluid" alt="..."
                                     style="height: 100%; width: 100%;">
                             </div>
                             <div class="col-lg-8" style="width: 100%; height: 100%;">
@@ -138,7 +138,7 @@
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="images/icon/user.png" alt="John Doe" />
+                                                        <img src="/images/icon/user.png" alt="John Doe" />
                                                     </div>
                                                 </td>
                                                 <td>Pedro Joaquim</td>
@@ -149,7 +149,7 @@
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="images/icon/user.png" alt="John Doe" />
+                                                        <img src="/images/icon/user.png" alt="John Doe" />
                                                     </div>
                                                 </td>
                                                 <td>Paula Matilde</td>
@@ -160,7 +160,7 @@
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="images/icon/user.png" alt="John Doe" />
+                                                        <img src="/images/icon/user.png" alt="John Doe" />
                                                     </div>
                                                 </td>
                                                 <td>Pedro Joaquim</td>
@@ -180,4 +180,4 @@
         <!-- END MAIN CONTENT-->
         <!-- END PAGE CONTAINER-->
     </div>
-<%- include('../inc/shared/footer') -%>
+<%- include('./../inc/shared/footer') -%>
