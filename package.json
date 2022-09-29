@@ -1,0 +1,8 @@
+{
+  "name": "plataforma-de-eventos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nunosirijc23/plataforma-de-eventos.git",
+  "author": "Nuno Miguel Mvemba <nunosirijc23@gmail.com>",
+  "license": "MIT"
+}
