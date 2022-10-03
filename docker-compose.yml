@@ -1,6 +1,18 @@
 version: '3.7'
 
 services:
+  database: 
+    image: mysql:8.0.30
+    ports:
+      - 3306:3306
+    volumes:
+      - mysqldata:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_PASSWORD=Event1234
+      - MYSQL_USER=admin_events
+      - MYSQL_DATABASE=events
+
   app: 
     build: .
     container_name: eventos
@@ -8,3 +20,11 @@ services:
       - 3333:3333
     volumes: 
       - .:/usr/app
+    depends_on:
+      - database
+    links:
+      - database
+
+volumes:
+  mysqldata:
+    driver: local
