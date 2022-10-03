@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "nodemon ./src/shared/infra/http/server.js",
-    "typeorm": "nodemon ./node_modules/typeorm/cli"
+    "migration:create": "typeorm migration:create -o -d ./src/config/ormconfig.js",
+    "test": "jest"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "mysql2": "^2.3.3",
@@ -17,6 +19,7 @@
     "typeorm": "^0.3.10"
   },
   "devDependencies": {
+    "jest": "^29.1.2",
     "nodemon": "^2.0.20"
   }
 }

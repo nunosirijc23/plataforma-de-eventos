@@ -1,3 +1,4 @@
+require('dotenv').config();
 require('reflect-metadata');
 require('../typeorm');
 const express = require('express');
