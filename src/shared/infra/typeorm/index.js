@@ -1,3 +1,3 @@
-const connectionSource = require('../../../config/ormconfig');
+const { createConnection } = require('typeorm');
 
-connectionSource.initialize();
+createConnection();

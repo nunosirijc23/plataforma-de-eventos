@@ -2,6 +2,7 @@ require('dotenv').config();
 require('reflect-metadata');
 require('../typeorm');
 const express = require('express');
+require('express-async-errors');
 const path = require('path');
 
 const indexPage = require('./routes/index.route');

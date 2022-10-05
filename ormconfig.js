@@ -1,6 +1,4 @@
-const typeorm = require('typeorm');
-
-module.exports = new typeorm.DataSource({
+module.exports = {
     migrationsTableName: 'migrations',
     type: process.env.DB_TYPE,
     host: process.env.DB_HOST,
@@ -19,4 +17,4 @@ module.exports = new typeorm.DataSource({
     cli: {
         migrationsDir: "./src/shared/infra/typeorm/migrations"
     }
-});
+}

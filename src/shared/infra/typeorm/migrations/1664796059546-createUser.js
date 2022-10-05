@@ -34,7 +34,7 @@ module.exports = class createUser1664796059546 {
                     },
                     {
                         name: "create_at",
-                        type: "date",
+                        type: "timestamp",
                         default: "now()"
                     }
                 ]
