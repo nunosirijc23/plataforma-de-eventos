@@ -8,10 +8,16 @@ class CreateUserUseCase {
     }
 
     async execute({ name, email, phone, password }) {
-        const userExists = await this.userRepository.findByEmail(email);
+        let userExists = await this.userRepository.findByEmail(email);
 
         if (userExists) {
-            throw Error("Usuário já existe!");
+            throw new Error("já existe um usuário com este email!");
+        }
+
+        userExists = await this.userRepository.findByPhone(phone);
+
+        if (userExists) {
+            throw new Error("já existe um usuário com este número!");
         }
 
         const passwordHashed = await hash(password, 10);

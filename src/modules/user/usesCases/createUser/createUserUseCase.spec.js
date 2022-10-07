@@ -28,14 +28,44 @@ describe("Create User", () => {
                 phone: 945206208,
                 password: "12345" 
             });
+            
+            let thrownError; 
 
-            const user = await createUserUseCase.execute({
+            try {
+                await createUserUseCase.execute({
+                    name: "Pedro Miguel", 
+                    email: "nunosirijc23@gmail.com", 
+                    phone: 945206208,
+                    password: "12345" 
+                });
+            } catch(error) {
+               thrownError = error;
+            }
+
+            expect(thrownError).toEqual(new Error("já existe um usuário com este email!"));
+    })
+
+    it("Should not be able to create a user with phone that exists", async () => {
+        await createUserUseCase.execute({
+            name: "Nuno Miguel", 
+            email: "nunosirijc23@gmail.com", 
+            phone: 945206208,
+            password: "12345" 
+        });
+        
+        let thrownError; 
+
+        try {
+            await createUserUseCase.execute({
                 name: "Pedro Miguel", 
-                email: "nunosirijc23@gmail.com", 
+                email: "nunoemvemba23@gmail.com", 
                 phone: 945206208,
                 password: "12345" 
             });
+        } catch(error) {
+           thrownError = error;
+        }
 
-            console.log(user);
+        expect(thrownError).toEqual(new Error("já existe um usuário com este número!"));
     })
 })

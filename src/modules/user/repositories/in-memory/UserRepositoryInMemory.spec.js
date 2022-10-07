@@ -16,4 +16,12 @@ describe("User repository in memory", () => {
         const userFetched = await userRepositoryInMemory.findByEmail("nunosirijc23@gmail.com");
         expect(userFetched.id).toEqual(user.id);
     })
+
+    it("shoulb be able to find user by phone", async () => {
+        const user = new User("Nuno Miguel", "nunosirijc23@gmail.com", 945206208, "sirijc23");
+        const userRepositoryInMemory = new UserRepositoryInMemory();
+        await userRepositoryInMemory.create(user);
+        const userFetched = await userRepositoryInMemory.findByPhone(945206208);
+        expect(userFetched.id).toEqual(user.id);
+    })
 })

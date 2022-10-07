@@ -12,8 +12,11 @@ class UserRepositoryInMemory extends IUserRepository {
     }
 
     async findByEmail(email) {
-        const user = this.users.find( user => user.email === email);
-        return user;
+        return this.users.find( user => user.email === email);
+    }
+
+    async findByPhone(phone) {
+        return this.users.find( user => user.phone === phone);
     }
 }
 

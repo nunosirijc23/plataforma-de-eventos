@@ -6,7 +6,10 @@
   "author": "Nuno Miguel Mvemba <nunosirijc23@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "nodemon ./src/shared/infra/http/server.js",
+    "start:dev": "nodemon --trace-warnings ./src/shared/infra/http/server.js",
+    "migration:create": "sequelize-cli migration:generate",
+    "migration:run": "sequelize-cli db:migrate",
+    "migration:revert": "sequelize-cli db:migrate:undo",
     "test": "jest"
   },
   "dependencies": {
@@ -16,12 +19,12 @@
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "mysql2": "^2.3.3",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "0.2.41",
+    "sequelize": "^6.24.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
     "jest": "^29.1.2",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "sequelize-cli": "^6.5.1"
   }
 }

@@ -10,7 +10,7 @@ class User {
         this.phone = phone;
         this.photo = 'default.png'
         this.password = password;
-        this.create_at = new Date()
+        this.createAt = new Date()
     }
 }
 

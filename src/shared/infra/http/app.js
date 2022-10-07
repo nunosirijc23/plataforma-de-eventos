@@ -1,6 +1,5 @@
 require('dotenv').config();
-require('reflect-metadata');
-require('../typeorm');
+require('../sequelize/config');
 const express = require('express');
 require('express-async-errors');
 const path = require('path');
@@ -12,6 +11,7 @@ const producersPages = require('./routes/producer.route');
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'web', 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'web', 'pages'));
