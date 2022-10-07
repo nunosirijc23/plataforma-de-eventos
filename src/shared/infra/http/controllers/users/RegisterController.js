@@ -14,14 +14,16 @@ class RegisterController {
         })
     }
 
-    async handler({ name, email, phone, password }) {
+    async handler(request, response) {
+        const { name, email, phone, password } = request.body;
+        
         try {
             await this.createUserUseCase.execute({ name, email, phone, password });
         } catch (error) {
             return new AppMessage(error.message, true);
         }
 
-        // return new AppMessage("Usuário criado com sucesso", false);
+        return new AppMessage("Usuário criado com sucesso", false);
     }
 }
 

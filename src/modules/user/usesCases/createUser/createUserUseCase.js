@@ -23,7 +23,6 @@ class CreateUserUseCase {
         const passwordHashed = await hash(password, 10);
         const user = new User(name, email, phone, passwordHashed);
         const userSaved = await this.userRepository.create(user);
-        delete userSaved.password;
         return userSaved;
     }
 }

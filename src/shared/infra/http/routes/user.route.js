@@ -1,21 +1,28 @@
 const { Router } = require('express');
 
 const menus = require('../middleware/users/menus');
+const ensureAuthenticated = require('../middleware/users/ensureAuthenticated');
 
 const UserRepository = require('../../../../modules/user/infra/sequelize/repositories/UserRepository');
 const RegisterController = require('../controllers/users/RegisterController');
 const CreateUserUseCase = require('../../../../modules/user/usesCases/createUser/createUserUseCase');
+const LoginController = require('../controllers/users/LoginController');
+const AuthenticateUserUseCase = require('../../../../modules/user/usesCases/authenticateUser/authenticateUserUseCase');
+const EventsController = require('../controllers/users/EventsController');
 
 const userRepository = new UserRepository();
 const createUserUseCase = new CreateUserUseCase(userRepository);
 const registerController = new RegisterController(createUserUseCase);
+const authenticateUserUseCase = new AuthenticateUserUseCase(userRepository);
+const loginController = new LoginController(authenticateUserUseCase);
+const eventsController = new EventsController();
 
 const user = Router();
 
+user.use(ensureAuthenticated) // ensure authenticated
+
 user.get('/login', (request, response) => {
-    response.render('user/login', {
-        title: 'Entrar'
-    })
+    return loginController.render(request, response, {}, null);
 }); // GET LOGIN PAGE
 
 user.get('/register', (request, response) => {
@@ -23,10 +30,7 @@ user.get('/register', (request, response) => {
 }) // GET REGISTER PAGE
 
 user.get('/events', menus, (request, response) => {
-    response.render('user/index', {
-        title: 'Eventos',
-        menus: request.menus
-    })
+    eventsController.render(request, response);
 }) // GET EVENTS PAGE
 
 user.get('/my-tickets', menus, (request, response) => {
@@ -43,15 +47,24 @@ user.get('/buy-ticket', (request, response) => {
 }) // GET BUY-TICKET PAGE
 
 user.post('/register', async (request, response) => {
-    const { name, email, phone, password } = request.body;
-
-    const appMessage = await registerController.handler({ name, email, phone, password });
+    const appMessage = await registerController.handler(request, response);
 
     if (!appMessage.isError) {
         registerController.render(request, response, {}, appMessage.message, null);
     } else {
-        registerController.render(request, response, { name, email, phone }, null, appMessage.message);
+        registerController.render(request, response, request.body, null, appMessage.message);
     }
 }) // POST REGISTER USER
+
+user.post('/login', async (request, response) => {
+    const userOrAppMessage = await loginController.handler(request, response);
+
+    if (userOrAppMessage.isError) {
+        loginController.render(request, response, request.body, userOrAppMessage.message)
+    } else {
+        request.session.user = userOrAppMessage;
+        return response.redirect('/users/events');
+    }
+}) // POST LOGIN
 
 module.exports = user;

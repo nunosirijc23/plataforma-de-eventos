@@ -12,6 +12,16 @@ class User {
         this.password = password;
         this.createAt = new Date()
     }
+
+    setValues(id, name, email, phone, photo, password, createAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.photo = photo
+        this.password = password;
+        this.createAt = createAt
+    }
 }
 
 module.exports = User;

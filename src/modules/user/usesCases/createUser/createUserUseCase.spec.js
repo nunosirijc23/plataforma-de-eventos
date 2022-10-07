@@ -22,27 +22,27 @@ describe("Create User", () => {
     })
 
     it("Should not be able to create a user with email that exists", async () => {
+        await createUserUseCase.execute({
+            name: "Nuno Miguel", 
+            email: "nunosirijc23@gmail.com", 
+            phone: 945206208,
+            password: "12345" 
+        });
+        
+        let thrownError; 
+
+        try {
             await createUserUseCase.execute({
-                name: "Nuno Miguel", 
+                name: "Pedro Miguel", 
                 email: "nunosirijc23@gmail.com", 
                 phone: 945206208,
                 password: "12345" 
             });
-            
-            let thrownError; 
+        } catch(error) {
+            thrownError = error;
+        }
 
-            try {
-                await createUserUseCase.execute({
-                    name: "Pedro Miguel", 
-                    email: "nunosirijc23@gmail.com", 
-                    phone: 945206208,
-                    password: "12345" 
-                });
-            } catch(error) {
-               thrownError = error;
-            }
-
-            expect(thrownError).toEqual(new Error("já existe um usuário com este email!"));
+        expect(thrownError).toEqual(new Error("já existe um usuário com este email!"));
     })
 
     it("Should not be able to create a user with phone that exists", async () => {
