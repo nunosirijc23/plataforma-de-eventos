@@ -1,3 +1,4 @@
+const { validateUserData } = require('../../utils/dataValidator');
 const AppMessage = require("../../../../../config/AppMessage");
 
 class RegisterController {
@@ -16,6 +17,10 @@ class RegisterController {
 
     async handler(request, response) {
         const { name, email, phone, password } = request.body;
+
+        const message = validateUserData(name, email, String(phone).toString(), password);
+
+        if (message) return new AppMessage(message, true);
         
         try {
             await this.createUserUseCase.execute({ name, email, phone, password });

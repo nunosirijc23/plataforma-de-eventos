@@ -1,3 +1,4 @@
+const { validateLoginData } = require('../../utils/dataValidator');
 const AppMessage = require("../../../../../config/AppMessage");
 
 class LoginController {
@@ -15,6 +16,11 @@ class LoginController {
 
     async handler(request, response) {
         const { email, password } = request.body;
+
+        const message = validateLoginData(email, password);
+        
+        if (message) return new AppMessage(message, true);
+        
         let user = null;
 
         try {
