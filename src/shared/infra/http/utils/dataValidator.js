@@ -10,7 +10,7 @@ function validate(schema, fields) {
 
 function validateUserData(name, email, phone, password) {
     const schema = joi.object({
-      name: joi.string().required().messages({
+      name: joi.string().trim().required().messages({
         "string.empty": "nome é obrigatório!",
         "string.base": "nome inválido!",
         "any.required": "nome é obrigatório!",
@@ -27,7 +27,7 @@ function validateUserData(name, email, phone, password) {
         'string.pattern.base': 'número de telefone inválido!',
         'any.required': 'número de telefone é obrigatório!'
       }),
-      password: joi.string().required().min(6).messages({
+      password: joi.string().trim().required().min(6).messages({
         "string.empty": 'senha é obrigatória!',
         "string.min": "senha deve ter pelo menos 6 caracteres!",
         'any.required': 'senha é obrigatória!'
@@ -46,7 +46,7 @@ function validateUserData(name, email, phone, password) {
 
 function validateProducerData(name, email, password) {
   const schema = joi.object({
-    name: joi.string().required().messages({
+    name: joi.string().trim().required().messages({
       "string.empty": "nome é obrigatório!",
       "string.base": "nome inválido!",
       "any.required": "nome é obrigatório!",
@@ -57,7 +57,7 @@ function validateProducerData(name, email, password) {
       "string.email": "email inválido!",
       "any.required": "email é obrigatório!",
     }),
-    password: joi.string().required().min(6).messages({
+    password: joi.string().trim().required().min(6).messages({
       "string.empty": 'senha é obrigatória!',
       "string.min": "senha deve ter pelo menos 6 caracteres!",
       'any.required': 'senha é obrigatória!'
@@ -76,12 +76,12 @@ function validateProducerData(name, email, password) {
 function validateLoginData(email, password) {
     const schema = joi.object({
       email: joi.string().required().messages({
-        "string.empty": "email é obrigatório!",
-        "any.required": "email é obrigatório!",
+        "string.empty": "Preencha os campos vazios!",
+        "any.required": "Preencha os campos vazios!",
       }),
       password: joi.string().required().messages({
-        "string.empty": "senha é obrigatória!",
-        "any.required": "senha é obrigatória!",
+        "string.empty": "Preencha os campos vazios!",
+        "any.required": "Preencha os campos vazios!",
       })
     });
   

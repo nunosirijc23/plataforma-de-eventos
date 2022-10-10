@@ -11,23 +11,23 @@
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="/images/icon/user.png" alt="user" />
+                                            <img src="/images/icon/user.png" alt="<%= producer.name %>" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">Organizador de eventos</a>
+                                            <a class="js-acc-btn" href="#"><%= producer.name %></a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="/images/icon/user.png" alt="user" />
+                                                        <img src="/images/icon/user.png" alt="<%= producer.name %>" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
-                                                        <a href="#">Organizador de eventos</a>
+                                                        <a href="#"><%= producer.name %></a>
                                                     </h5>
-                                                    <span class="email">organizador@example.com</span>
+                                                    <span class="email"><%= producer.email %></span>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__body">
@@ -41,7 +41,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="/producers/logout">
                                                     <i class="zmdi zmdi-power"></i>Sair
                                                 </a>
                                             </div>

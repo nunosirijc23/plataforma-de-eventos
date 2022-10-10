@@ -19,7 +19,7 @@ const eventsController = new EventsController();
 
 const user = Router();
 
-user.use(ensureAuthenticated) // ensure authenticated
+user.use(ensureAuthenticated); // ENSURE USER AUTHENTICATE
 
 user.get('/login', (request, response) => {
     return loginController.render(request, response, {}, null);
@@ -27,24 +27,29 @@ user.get('/login', (request, response) => {
 
 user.get('/register', (request, response) => {
     return registerController.render(request, response, {}, null, null);
-}) // GET REGISTER PAGE
+}); // GET REGISTER PAGE
 
 user.get('/events', menus, (request, response) => {
     eventsController.render(request, response);
-}) // GET EVENTS PAGE
+}); // GET EVENTS PAGE
 
 user.get('/my-tickets', menus, (request, response) => {
     response.render('user/my-tickets', {
         title: 'Meus bilhetes',
         menus: request.menus
     })
-}) // GET MY-TICKET PAGE
+}); // GET MY-TICKET PAGE
 
 user.get('/buy-ticket', (request, response) => {
     response.render('user/buy-ticket', {
         title: 'Comprar bilhete'
     })
-}) // GET BUY-TICKET PAGE
+}); // GET BUY-TICKET PAGE
+
+user.get('logout', (request, response) => {
+    delete request.session.user;
+    return response.redirect("/users/login");
+}); // GET USER LOGOUT
 
 user.post('/register', async (request, response) => {
     const appMessage = await registerController.handler(request, response);
@@ -54,7 +59,7 @@ user.post('/register', async (request, response) => {
     } else {
         registerController.render(request, response, request.body, null, appMessage.message);
     }
-}) // POST REGISTER USER
+}); // POST REGISTER USER
 
 user.post('/login', async (request, response) => {
     const userOrAppMessage = await loginController.handler(request, response);
@@ -65,6 +70,6 @@ user.post('/login', async (request, response) => {
         request.session.user = userOrAppMessage;
         return response.redirect('/users/events');
     }
-}) // POST LOGIN
+}); // POST LOGIN
 
 module.exports = user;
