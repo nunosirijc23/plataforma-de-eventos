@@ -9,15 +9,17 @@
                                 <h1>SPREAD</h1>
                             </a>
                         </div>
+                        <%- include('./../inc/assets/alert-error') -%>
+                        <%- include('./../inc/assets/alert-success') -%> 
                         <div class="login-form">
-                            <form action="" method="post">
+                            <form action="/producers/register" method="post">
                                 <div class="form-group">
                                     <label>Nome completo</label>
-                                    <input class="au-input au-input--full" type="text" name="name" placeholder="Nome completo">
+                                    <input class="au-input au-input--full" type="text" name="name" placeholder="Nome completo" value="<%= body.name %>">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email" value="<%= body.email %>">
                                 </div>
                                 <div class="form-group">
                                     <label>Senha</label>

@@ -1,23 +1,21 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../../../../../shared/infra/sequelize/connection');
 
-class User extends Model {}
+class Producer extends Model {}
 
-User.init({
+Producer.init({
     id: {
         type: DataTypes.STRING,
         primaryKey: true
     },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    phone: DataTypes.INTEGER,
-    photo: DataTypes.TEXT,
     password: DataTypes.TEXT,
     createAt: DataTypes.DATE
 }, {
     sequelize,
-    tableName: "users",
+    tableName: "producers",
     timestamps: false
 });
 
-module.exports = User;
+module.exports = Producer;

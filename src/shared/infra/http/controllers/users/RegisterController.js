@@ -28,7 +28,7 @@ class RegisterController {
             return new AppMessage(error.message, true);
         }
 
-        return new AppMessage("Usuário criado com sucesso", false);
+        return new AppMessage("Conta criada com sucesso!", false);
     }
 }
 

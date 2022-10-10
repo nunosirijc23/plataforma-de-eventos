@@ -13,7 +13,7 @@ describe("Create User", () => {
         expect(user.photo).toBe('default.png');
     })
 
-    it("Should be able to create a new user with create_at default date now()", () => {
+    it("Should be able to create a new user with createAt default date now()", () => {
         const user = new User("Nuno Miguel", "nunosirijc23@gmail.com", 945206208, "sirijc23");
         expect(user.createAt).not.toBeUndefined(); 
     })

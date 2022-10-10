@@ -44,6 +44,35 @@ function validateUserData(name, email, phone, password) {
     return validator;
 };
 
+function validateProducerData(name, email, password) {
+  const schema = joi.object({
+    name: joi.string().required().messages({
+      "string.empty": "nome é obrigatório!",
+      "string.base": "nome inválido!",
+      "any.required": "nome é obrigatório!",
+    }),
+    email: joi.string().email().required().messages({
+      "string.empty": "email é obrigatório!",
+      "string.base": "email inválido!",
+      "string.email": "email inválido!",
+      "any.required": "email é obrigatório!",
+    }),
+    password: joi.string().required().min(6).messages({
+      "string.empty": 'senha é obrigatória!',
+      "string.min": "senha deve ter pelo menos 6 caracteres!",
+      'any.required': 'senha é obrigatória!'
+    }),
+  });
+
+  const validator = validate(schema, {
+    name,
+    email,
+    password,
+  });
+
+  return validator;
+};
+
 function validateLoginData(email, password) {
     const schema = joi.object({
       email: joi.string().required().messages({
@@ -64,5 +93,5 @@ function validateLoginData(email, password) {
     return validator;
 };
 
-module.exports = { validateUserData, validateLoginData };
+module.exports = { validateUserData, validateProducerData, validateLoginData };
   
