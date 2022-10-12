@@ -2,7 +2,7 @@ const { v4: uuidV4 } = require('uuid');
 
 const Producer = require('./producer');
 
-describe("Create Producer", () => {
+describe("Producer Entity", () => {
     it("should be able to create producer", () => {
         const producer = new Producer("Pro Eventos", "pro.events@gmail.com", "112454");
         expect(producer.id).not.toBeUndefined()

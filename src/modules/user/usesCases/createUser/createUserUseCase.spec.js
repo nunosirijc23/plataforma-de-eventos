@@ -42,7 +42,7 @@ describe("Create User", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("já existe um usuário com este email!"));
+        expect(thrownError).toEqual(new Error("Já existe um usuário com este email!"));
     })
 
     it("Should not be able to create a user with phone that exists", async () => {
@@ -66,6 +66,6 @@ describe("Create User", () => {
            thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("já existe um usuário com este número!"));
+        expect(thrownError).toEqual(new Error("Já existe um usuário com este número!"));
     })
 })

@@ -39,6 +39,6 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(Error("já existe um usuário com este email!"));
+        expect(thrownError).toEqual(Error("Já existe um usuário com este email!"));
     })
 })

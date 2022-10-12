@@ -36,17 +36,19 @@ user.get('/events', menus, (request, response) => {
 user.get('/my-tickets', menus, (request, response) => {
     response.render('user/my-tickets', {
         title: 'Meus bilhetes',
-        menus: request.menus
+        menus: request.menus,
+        user: request.session.user
     })
 }); // GET MY-TICKET PAGE
 
 user.get('/buy-ticket', (request, response) => {
     response.render('user/buy-ticket', {
-        title: 'Comprar bilhete'
+        title: 'Comprar bilhete',
+        user: request.session.user
     })
 }); // GET BUY-TICKET PAGE
 
-user.get('logout', (request, response) => {
+user.get('/logout', (request, response) => {
     delete request.session.user;
     return response.redirect("/users/login");
 }); // GET USER LOGOUT

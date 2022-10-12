@@ -46,7 +46,7 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("email ou senha errada!"));
+        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
     })
 
     it("should not be able to authenticate producer with wrong password", async () => {
@@ -67,6 +67,6 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("email ou senha errada!"));
+        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
     })
 })

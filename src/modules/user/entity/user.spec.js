@@ -2,7 +2,7 @@ const { v4: uuidV4 } = require('uuid');
 
 const User = require('./user');
 
-describe("Create User", () => {
+describe("User Entity", () => {
     it("Should be able to create a new user", () => {
         const user = new User("Nuno Miguel", "nunosirijc23@gmail.com", 945206208, "sirijc23");
         expect(user.id).not.toBeUndefined();

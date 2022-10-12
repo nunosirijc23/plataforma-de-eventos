@@ -36,13 +36,15 @@ producer.get('/dashboard', menus, (request, response) => {
 producer.get('/my-events', menus, (request, response) => {
     response.render('producer/my-events', {
         title: 'Meus eventos',
-        menus: request.menus
+        menus: request.menus,
+        producer: request.session.producer
     })
 }); // GET MY-EVENTS PAGE
 
 producer.get('/event', (request, response) => {
     response.render('producer/event', {
-        title: 'Evento'
+        title: 'Evento',
+        producer: request.session.producer
     })
 }); // GET MY-EVENTS PAGE
 

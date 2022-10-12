@@ -48,7 +48,7 @@ describe("Authenticate User", () => {
             thrownError = error;    
         }
 
-        expect(thrownError).toEqual(new Error("email ou senha errada!"));
+        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
     });
 
     it("should not be able to authenticate user with wrong password", async () => {
@@ -70,6 +70,6 @@ describe("Authenticate User", () => {
             thrownError = error;    
         }
 
-        expect(thrownError).toEqual(new Error("email ou senha errada!"));
+        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
     });
 });
