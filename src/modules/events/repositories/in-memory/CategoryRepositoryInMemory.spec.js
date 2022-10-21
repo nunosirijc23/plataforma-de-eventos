@@ -8,13 +8,13 @@ describe("Category Repository In Memory", () => {
         categoryRepositoryInMemory = new CategoryRepositoryInMemory();
     })
 
-    it("should be able to create a new category", async () => {
+    it("should be able to save a new category in memory", async () => {
         const category = new Category("Festa");
         await categoryRepositoryInMemory.create(category);
         expect(categoryRepositoryInMemory.categories[0]).toEqual(category);
     })
 
-    it("should be able to find all categories", async () => {
+    it("should be able to find all categories in memory", async () => {
         const category1 = new Category("Festa");
         const category2 = new Category("Palestra");
         await categoryRepositoryInMemory.create(category1);

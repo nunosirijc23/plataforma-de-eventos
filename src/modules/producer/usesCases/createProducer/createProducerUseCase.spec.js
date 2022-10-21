@@ -1,3 +1,4 @@
+const AppErrorException = require('../../../../config/AppErrorException');
 const ProducerRepositoryInMemory = require('../../repositories/in-memory/ProducerRepositoryInMemory');
 const CreateProducerUseCase = require('./createProducerUseCase');
 
@@ -39,6 +40,6 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(Error("Já existe um usuário com este email!"));
+        expect(thrownError).toEqual(new AppErrorException("Já existe um usuário com este email!"));
     })
 })

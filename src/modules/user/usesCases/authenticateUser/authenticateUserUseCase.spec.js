@@ -1,6 +1,7 @@
 const AuthenticateUserUseCase = require('./authenticateUserUseCase');
 const CreateUserUseCase = require('../createUser/createUserUseCase');
 const UserRepositoryInMemory = require('../../repositories/in-memory/UserRepositoryInMemory');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 let authenticateUserUseCase;
 let createUserUseCase;
@@ -48,7 +49,7 @@ describe("Authenticate User", () => {
             thrownError = error;    
         }
 
-        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
+        expect(thrownError).toEqual(new AppErrorException("E-mail ou senha errada!"));
     });
 
     it("should not be able to authenticate user with wrong password", async () => {
@@ -70,6 +71,6 @@ describe("Authenticate User", () => {
             thrownError = error;    
         }
 
-        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
+        expect(thrownError).toEqual(new AppErrorException("E-mail ou senha errada!"));
     });
 });

@@ -4,10 +4,6 @@ const sequelize = require('../../../../../shared/infra/sequelize/connection');
 class Producer extends Model {}
 
 Producer.init({
-    id: {
-        type: DataTypes.STRING,
-        primaryKey: true
-    },
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.TEXT,

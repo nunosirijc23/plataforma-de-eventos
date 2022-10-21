@@ -26,6 +26,7 @@ class LoginController {
         try {
             producer = await this.authenticateProducerUseCase.execute({ email, password });
         } catch (error) {
+            if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }
 

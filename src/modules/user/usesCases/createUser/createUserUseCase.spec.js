@@ -1,3 +1,4 @@
+const AppErrorException = require('../../../../config/AppErrorException');
 const UserRepositoryInMemory = require('../../repositories/in-memory/UserRepositoryInMemory');
 const CreateUserUseCase = require('./createUserUseCase');
 
@@ -42,7 +43,7 @@ describe("Create User", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("Já existe um usuário com este email!"));
+        expect(thrownError).toEqual(new AppErrorException("Já existe um usuário com este email!"));
     })
 
     it("Should not be able to create a user with phone that exists", async () => {
@@ -66,6 +67,6 @@ describe("Create User", () => {
            thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("Já existe um usuário com este número!"));
+        expect(thrownError).toEqual(new AppErrorException("Já existe um usuário com este número!"));
     })
 })

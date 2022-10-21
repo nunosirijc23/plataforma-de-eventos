@@ -8,7 +8,7 @@ describe("Producer Repository In Memory", () => {
         producerRepositoryInMemory = new ProducerRepositoryInMemory();
     })
 
-    it("should be able to create producer in memory", async () => {
+    it("should be able to save a new producer in memory", async () => {
         const producer = new Producer("Pro Events", "pro.events@gmail.com", "123456");
         const producerSaved = await producerRepositoryInMemory.create(producer);
         expect(producer).toEqual(producerSaved);

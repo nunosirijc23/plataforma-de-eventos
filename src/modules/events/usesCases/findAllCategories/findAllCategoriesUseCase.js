@@ -1,3 +1,5 @@
+const Category = require("../../entity/category");
+
 class FindAllCategoriesUseCase {
     constructor(categoryRepository) {
         this.categoryRepository = categoryRepository

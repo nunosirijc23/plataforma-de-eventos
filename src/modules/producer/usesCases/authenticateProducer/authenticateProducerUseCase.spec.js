@@ -1,6 +1,7 @@
 const ProducerRepositoryInMemory = require('../../repositories/in-memory/ProducerRepositoryInMemory');
 const AuthenticateProducerUseCase = require('./authenticateProducerUseCase');
 const CreateProducerUseCase = require('../createProducer/createProducerUseCase');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 let producerRepositoryInMemory;
 let authenticateProducerUseCase;
@@ -46,7 +47,7 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
+        expect(thrownError).toEqual(new AppErrorException("E-mail ou senha errada!"));
     })
 
     it("should not be able to authenticate producer with wrong password", async () => {
@@ -67,6 +68,6 @@ describe("Create Producer Use Case", () => {
             thrownError = error;
         }
 
-        expect(thrownError).toEqual(new Error("E-mail ou senha errada!"));
+        expect(thrownError).toEqual(new AppErrorException("E-mail ou senha errada!"));
     })
 })

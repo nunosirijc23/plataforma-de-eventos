@@ -1,4 +1,5 @@
 const { compare } = require('bcrypt');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 const Producer = require('../../entity/producer');
 
@@ -10,11 +11,11 @@ class AuthenticateProducerUseCase {
     async execute({ email, password }) {
         const producer = await this.producerRepository.findByEmail(email);
 
-        if (!producer) throw new Error("E-mail ou senha errada!");
+        if (!producer) throw new AppErrorException("E-mail ou senha errada!");
 
         const isPasswordWrong = await compare(password, producer.password);
 
-        if (!isPasswordWrong) throw new Error("E-mail ou senha errada!");
+        if (!isPasswordWrong) throw new AppErrorException("E-mail ou senha errada!");
 
         const producerEntity = new Producer();
         producerEntity.setValues(producer.id, producer.name, producer.email, producer.password, producer.createAt);

@@ -1,6 +1,7 @@
 const { hash } = require('bcrypt');
 
 const Producer = require('../../entity/producer');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 class CreateProducerUseCase {
     constructor(producerRepository) {
@@ -10,7 +11,7 @@ class CreateProducerUseCase {
     async execute({ name, email, password }) {
         const producerExists = await this.producerRepository.findByEmail(email);
 
-        if (producerExists) throw new Error("Já existe um usuário com este email!");
+        if (producerExists) throw new AppErrorException("Já existe um usuário com este email!");
 
         const passwordHashed = await hash(password, 10);
         const producer = new Producer(name, email, passwordHashed);
