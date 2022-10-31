@@ -14,20 +14,26 @@ const FindAllCategoriesUseCase = require('../../../../modules/events/usesCases/f
 const EventRepository = require('../../../../modules/events/infra/sequelize/repositories/EventRepository');
 const FindAllEventsByProducerIdUseCase = require('../../../../modules/events/usesCases/findAllEventsByProducerId/findAllEventsByProducerIdUseCase');
 const CreateEventUseCase = require('../../../../modules/events/usesCases/createEvent/createEventUseCase');
-const MyEventsController = require('../controllers/producer/MyEventsController');  
+const MyEventsController = require('../controllers/producer/MyEventsController');
+const FindOneEventByIdUseCase = require('../../../../modules/events/usesCases/findOneEventById/findOneEventByIdUseCase');
+const EventController = require('../controllers/producer/EventController');  
 
 let producerRepository = new ProducerRepository();
-let createProducerUseCase = new CreateProducerUseCase(producerRepository);
-let registerController = new RegisterController(createProducerUseCase);
-let authenticateProducerUseCase = new AuthenticateProducerUseCase(producerRepository);
-let loginController = new LoginController(authenticateProducerUseCase);
-let dashboardController = new DashboardController();
 let categoryRepository = new CategoryRepository();
-let findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository);
 let eventRepository = new EventRepository();
+
+let createProducerUseCase = new CreateProducerUseCase(producerRepository);
+let authenticateProducerUseCase = new AuthenticateProducerUseCase(producerRepository);
+let findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository);
 let findAllEventsByProducerIdUseCase = new FindAllEventsByProducerIdUseCase(eventRepository);
+let findOneEventByIdUseCase = new FindOneEventByIdUseCase(eventRepository);
 let createEventUseCase = new CreateEventUseCase(eventRepository);
+
+let registerController = new RegisterController(createProducerUseCase);
+let loginController = new LoginController(authenticateProducerUseCase);
+let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase);
 let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase);
+let eventController = new EventController(findOneEventByIdUseCase);
 
 const producer = Router();
 
@@ -41,19 +47,16 @@ producer.get('/register', (request, response) => {
     registerController.render(request, response, {}, null, null);
 }); // GET REGISTER PAGE
 
-producer.get('/dashboard', menus, (request, response) => {
-    dashboardController.render(request, response);
+producer.get('/dashboard', menus, async (request, response) => {
+    return await dashboardController.render(request, response);
 }); // GET DASHBOARD PAGE
 
 producer.get('/my-events', menus, (request, response) => {
     myEventsController.render(request, response);
 }); // GET MY-EVENTS PAGE
 
-producer.get('/event', (request, response) => {
-    response.render('producer/event', {
-        title: 'Evento',
-        producer: request.session.producer
-    })
+producer.get('/event/:id', async (request, response) => {
+    return await eventController.render(request, response);
 }); // GET MY-EVENTS PAGE
 
 producer.get('/logout', (request, response) => {

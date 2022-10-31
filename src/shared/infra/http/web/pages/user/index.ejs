@@ -10,89 +10,89 @@
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/festa-musica.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <a href="/users/buy-ticket"><h4 class="card-title mb-3">Festa da música</h4></a>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
+                            <% if (events.length <= 0) {%>
+                                <h4 class="text-center">Nenhum evento encontrado!</h4>
+                            <% } else { %>  
+                                <% events.forEach( event => {  %> 
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <img class="card-img-top image-height" src="/images/<%= event.photo %>" alt="Card image cap">
+                                            <div class="card-body">
+                                                <a href="/users/buy-ticket/<%= event.id %>"><h4 class="card-title mb-3"><%= event.name %></h4></a>
+                                                <p class="card-text"><strong>Data:</strong> <%= event.date %></p>
+                                                <% let startTime = event.startTime.split(":")[0] + ":" + event.startTime.split(":")[1]%> 
+                                                <% let endTime = event.endTime.split(":")[0] + ":" + event.endTime.split(":")[1]%>
+                                                <p class="card-text"><strong>Horário:</strong>  <%= startTime %> às <%= endTime %></p>
+                                                <p class="card-text"><strong>Categoria:</strong>  <%= event.category.name %></p>
+                                                <p class="card-text"><strong>Organizador</strong>  <%= event.producer.name %></p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/festa-das-cores.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Festa das cores</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/show-de-semba.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Show de semba</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/festa-musica.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <a href="buy-ticket.html"><h4 class="card-title mb-3">Festa da música</h4></a>
-                                        <p class="card-text">Some quick example text to build on the card title and
-                                            make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/festa-das-cores.jpeg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Festa das cores</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <img class="card-img-top image-height" src="/images/show-de-semba.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Show de semba</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make
-                                            up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                                <% }) %> 
+                            <% } %> 
                         </div>
                     </div>
                 </div>
             </section>
             <!-- END PAGE CONTAINER-->
         </div>
+        <!-- modal search event -->
+        <div class="modal fade" id="searchEventModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalSearchEventLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediumModalSearchEventLabel">Pesquisar eventos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/users/events" method="get">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="form-group col-sm-6">
+                                                <label for="cc-payment" class="control-label mb-1">
+                                                    Nome
+                                                </label>
+                                                <input name="name" type="text" class="form-control-sm form-control"
+                                                    aria-required="true" aria-invalid="false">
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label for="cc-name" class="control-label mb-1">Categoria</label>
+                                                <select name="categoryId" id="select"
+                                                    class="form-control-sm form-control">
+                                                    <option disabled selected>Escolha</option>
+                                                    <% categories.forEach( category => { %> 
+                                                    <option value="<%= category.id %>"><%= category.name %></option>
+                                                    <% }) %> 
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        <button id="payment-button" type="submit"
+                                            class="btn btn-lg btn-info btn-block">
+                                            <span id="payment-button-amount">Pesquisar</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Confirm</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- end modal search event -->
+            
 <%- include('./../inc/shared/footer')  -%> 

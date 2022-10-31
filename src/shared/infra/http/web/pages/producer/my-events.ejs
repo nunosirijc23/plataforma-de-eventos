@@ -20,82 +20,69 @@
                                     </div>
                                     <div class="table-data__tool-right">
                                         <a href="#" class="au-btn au-btn-icon au-btn--green au-btn--small"
-                                            data-toggle="modal" data-target="#mediumModal">
+                                            data-toggle="modal" data-target="#createEventModal">
                                             <i class="zmdi zmdi-plus"></i>Novo Evento
                                         </a>
                                     </div>
                                 </div>
-                                <div class="table-responsive table-responsive-data2">
+                                <div class="table-responsive table-responsive-data">
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
                                                 <th></th>
                                                 <th>name</th>
                                                 <th>Data</th>
-                                                <th>Tipo</th>
-                                                <th>status</th>
-                                                <th>Bilhetes comprados</th>
+                                                <th>Horário</th>
+                                                <th>Categoria</th>
+                                                <th>Estado</th>
+                                                <th>Total de bilhetes</th>
                                                 <th>Bilhete Preço</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% events.forEach( event => { %> 
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="/images/festa-musica.jpeg" alt="John Doe" />
+                                                        <img src="/images/<%= event.photo %>" alt="<%= event.name %>" />
                                                     </div>
                                                 </td>
-                                                <td><a href="/producers/event" >Festa da música</a></td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>Festa</td>
+                                                <td><a href="/producers/event/<%= event.id %>"><%= event.name %></a></td>
+                                                <td><%= event.date %></td>
+                                                <% let startTime = event.startTime.split(":")[0] + ":" + event.startTime.split(":")[1]%> 
+                                                <% let endTime = event.endTime.split(":")[0] + ":" + event.endTime.split(":")[1]%> 
+                                                <td><%= startTime %> às <%= endTime %></td>
+                                                <td><%= event.category.name %></td>
                                                 <td>
-                                                    <span class="status--process">Realizado</span>
+                                                    <% let dateNow = new Date().getTime(); let eventDate = new Date(event.date).getTime() %> 
+                                                    <% if ( dateNow < eventDate ) { %> 
+                                                    <span class="role user">Pendente</span>
+                                                    <% } else { %>
+                                                    <span class="role member">Realizado</span>
+                                                    <% } %> 
                                                 </td>
-                                                <td>320/400</td>
-                                                <td>15,000 Akz</td>
+                                                <td><%= event.capacity %></td>
+                                                <td><% if (event.price === 0) { %> Grátis <% } else { %>  <%= event.price %> Akz <% } %></td>
                                                 <td>
                                                     <div class="table-data-feature">
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
+                                                            title="Editar">
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </button>
                                                         <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
+                                                            title="Eliminar">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                            title="Imagem">
+                                                            <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
                                             <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <div class="image img-40">
-                                                        <img src="/images/festa-das-cores.jpeg" alt="John Doe" />
-                                                    </div>
-                                                </td>
-                                                <td>Festa das cores</td>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>Festa</td>
-                                                <td>
-                                                    <span class="status--denied">Cancelado</span>
-                                                </td>
-                                                <td>0/200</td>
-                                                <td>10,000 Akz</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Edit">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
-                                                            title="Delete">
-                                                            <i class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
+                                            <% }) %> 
                                         </tbody>
                                     </table>
                                 </div>
@@ -110,7 +97,7 @@
         </div>
 
         <!-- modal create event -->
-        <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+        <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">

@@ -4,6 +4,7 @@ const ProducerRepositoryInMemory = require('../../../producer/repositories/in-me
 const CreateProducerUseCase = require('../../../producer/usesCases/createProducer/createProducerUseCase');
 const CategoryRepositoryInMemory = require('../../repositories/in-memory/CategoryRepositoryInMemory');
 const Category = require('../../entity/category');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 let eventRepositoryInMemory;
 let createEventUseCase;
@@ -88,6 +89,6 @@ describe("Create Event Use Case", () => {
         } catch (error) {
            thrownError = error; 
         }
-        expect(thrownError).toEqual(new Error("Já existe um evento com este nome!"));
+        expect(thrownError).toEqual(new AppErrorException("Já existe um evento com este nome!"));
     })
 })

@@ -39,20 +39,40 @@ class EventRepository extends IEventRepository {
         let events;
 
         if (name && categoryId) {
-            events = await this.repository.findAll({ where: { name, categoryId }});
+            events = await this.repository.findAll({ 
+                where: { name, categoryId },
+                include: ["category", "producer"]
+            });
         } else if (name) {
-            events = await this.repository.findAll({ where: { name }});
+            events = await this.repository.findAll({ 
+                where: { name },
+                include: ["category", "producer"]
+            });
         } else if (categoryId) {
-            events = await this.repository.findAll({ where: { categoryId }});
+            events = await this.repository.findAll({ 
+                where: { categoryId },
+                include: ["category", "producer"]
+            });
         } else {
-            events = await this.repository.findAll();
+            events = await this.repository.findAll({ include: ["category", "producer"]});
         }
 
         return events;
     }
 
+    async findOneById(id) {
+        const events = await this.repository.findOne({ 
+            where: { id },
+            include: "category"
+        });
+        return events;
+    }
+
     async findAllByProducerId(producerId) {
-        const events = await this.repository.findAll({ where: { producerId }});
+        const events = await this.repository.findAll({ 
+            where: { producerId },
+            include: "category"
+        });
         return events;
     }
 }

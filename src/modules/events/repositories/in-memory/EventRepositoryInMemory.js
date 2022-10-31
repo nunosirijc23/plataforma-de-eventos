@@ -18,6 +18,10 @@ class EventRepositoryInMemory extends IEventRepository {
         }
     }
 
+    async findOneById(id) {
+        return this.events.find( event => event.id === id);
+    }
+
     async findAllByProducerId(producerId) {
         return this.events.filter(event => event.producerId === producerId);
     }

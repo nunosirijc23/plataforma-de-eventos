@@ -1,4 +1,5 @@
 const Event = require('../../entity/event');
+const AppErrorException = require('../../../../config/AppErrorException');
 
 class CreateEventUseCase {
     constructor(eventRepository) {
@@ -26,7 +27,7 @@ class CreateEventUseCase {
             producerId
         });
 
-        if (eventExists) throw new Error("Já existe um evento com este nome!");
+        if (eventExists) throw new AppErrorException("Já existe um evento com este nome!");
 
         const event = new Event(name, date, startTime, endTime, price, capacity, province, county, district, street, description, categoryId, producerId);
         const eventSaved = await this.eventRepository.create(event);
