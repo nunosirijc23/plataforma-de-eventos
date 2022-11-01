@@ -82,4 +82,15 @@ describe("Event Repository In Memory", () => {
         const eventFetched = await eventRepositoryInMemory.findAllByProducerId(event.producerId);
         expect(eventFetched).toEqual([event]);
     })
+
+    it("should be able to update an event", async () => {
+        const producer = await producerRepositoryInMemory.create(new Producer("Producer", "producer@spread.com", "234355"));
+        const category = await categoryRepositoryInMemory.create(new Category("Festa"));
+        const event = await eventRepositoryInMemory.create(new Event("Festa das cores", new Date(), new Date().getTime(), new Date().getTime(), 11000, 200, "Luanda", "Talatona", "Bairro militar", "Atros", "bla bla bla", category.id, producer.id));
+        const eventFetched = await eventRepositoryInMemory.findOneById(event.id);
+        const eventUpdated = new Event();
+        eventUpdated.setValues(eventFetched.id, "Festa na praia", new Date(), new Date().getTime(), new Date().getTime(), 15000, 600, "Luanda", "Luanda", "Ilha de luanda", "Rua 12", "Em frente do tamariz", eventFetched.categoryId, eventFetched.producerId, eventFetched.createdAt);
+        const eventUpdatedSaved = await eventRepositoryInMemory.update(eventUpdated);
+        expect(eventRepositoryInMemory.events).toEqual([eventUpdatedSaved]);
+    })
 })

@@ -30,6 +30,27 @@ class EventRepository extends IEventRepository {
         return await eventSaved.save();
     }
 
+    async update(event) {
+        const eventUpdated = await this.repository.update({
+            name: event.name,
+            date: event.date,
+            startTime: event.startTime,
+            endTime: event.endTime,
+            price: event.price,
+            capacity: event.capacity,
+            province: event.province,
+            county: event.county,
+            district: event.district,
+            street: event.street,
+            description: event.description,
+            categoryId: event.categoryId
+        }, {
+            where: { id: event.id },
+        })
+
+        return eventUpdated;
+    }
+
     async findByNameAndCategoryIdAndProducerId({ name, categoryId, producerId }) {
         const event = await this.repository.findOne({ where: { name, categoryId, producerId }});
         return event;
