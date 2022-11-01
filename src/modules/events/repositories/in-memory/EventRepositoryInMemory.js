@@ -38,7 +38,15 @@ class EventRepositoryInMemory extends IEventRepository {
 
     async update(event) {
         const index = this.events.findIndex(e => e.id === event.id);
-        const eventFetched = this.events[index];
+        this.events.splice(index, 1);
+        this.events.push(event);
+        return event;
+    }
+
+    async updatePhoto({ photo, id }) {
+        const index = this.events.findIndex(e => e.id === id);
+        const event = this.events[index];
+        event.photo = photo;
         this.events.splice(index, 1);
         this.events.push(event);
         return event;

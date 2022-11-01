@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const fs = require('fs')
 
 // config upload path directory
-const uploadPath = path.resolve(__dirname, '..', '..', '..', 'uploads')
+const uploadPath = path.resolve(__dirname, '..', 'shared', 'infra', 'http', 'web', 'public', 'images');
 
 
 const storage = multer.diskStorage({
@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage })
 
 async function deleteFile(filename) {
-    if (!(['company.png', 'dish.png', 'service.png', 'room.png'].indexOf(filename) > -1)) {
+    if (!(['events.png', 'default.png',].indexOf(filename) > -1)) {
         const filePath = path.join(uploadPath, filename)
         const isFileExist = await fs.promises.stat(filePath)
         if (isFileExist) await fs.promises.unlink(filePath)

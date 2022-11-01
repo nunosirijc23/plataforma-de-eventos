@@ -93,4 +93,17 @@ describe("Event Repository In Memory", () => {
         const eventUpdatedSaved = await eventRepositoryInMemory.update(eventUpdated);
         expect(eventRepositoryInMemory.events).toEqual([eventUpdatedSaved]);
     })
+
+    it("should be able to update an event photo", async () => {
+        const producer = await producerRepositoryInMemory.create(new Producer("Producer", "producer@spread.com", "234355"));
+        const category = await categoryRepositoryInMemory.create(new Category("Festa"));
+        const event = await eventRepositoryInMemory.create(new Event("Festa das cores", new Date(), new Date().getTime(), new Date().getTime(), 11000, 200, "Luanda", "Talatona", "Bairro militar", "Atros", "bla bla bla", category.id, producer.id));
+        const oldPhoto = event.photo;
+        const eventFetched = await eventRepositoryInMemory.findOneById(event.id);
+        const eventUpdated = await eventRepositoryInMemory.updatePhoto({ 
+            photo: "newPhoto.png",
+            id: eventFetched.id
+        });
+        expect(eventUpdated.photo).not.toEqual(oldPhoto);
+    })
 })

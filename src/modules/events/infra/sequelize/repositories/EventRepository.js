@@ -96,6 +96,16 @@ class EventRepository extends IEventRepository {
         });
         return events;
     }
+
+    async updatePhoto({ photo, id }) {
+        const event = await this.repository.update({
+            photo,
+        },{
+            where: { id },
+        });
+
+        return event;
+    }
 }
 
 module.exports = EventRepository;
