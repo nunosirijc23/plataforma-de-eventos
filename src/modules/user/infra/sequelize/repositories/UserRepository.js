@@ -21,9 +21,17 @@ class UserRepository extends IUserRepository {
         return await userSaved.save();
     }
 
+    async findById(id) {
+        const user = await this.repository.findOne({
+            where: { id }
+        });
+
+        return user;
+    }
+
     async findByEmail(email) {
         const user = await this.repository.findOne({
-            where: { email: email }
+            where: { email }
         });
 
         return user;
@@ -32,6 +40,38 @@ class UserRepository extends IUserRepository {
     async findByPhone(phone) {
         const user = await this.repository.findOne({
             where: { phone }
+        });
+
+        return user;
+    }
+
+    async updatePhoto({ photo, id }) {
+        const user = await this.repository.update({
+            photo
+        }, {
+            where: { id }
+        });
+
+        return user;
+    }
+
+    async updateUserData(user) {
+        const user = await this.repository.update({
+            name: user.name,
+            email: user.email, 
+            phone: user.phone
+        }, {
+            where: { id: user.id }
+        });
+
+        return user;
+    }
+
+    async updatePassword({ password, id }) {
+        const user = await this.repository.update({
+            password
+        }, {
+            where: { id }
         });
 
         return user;

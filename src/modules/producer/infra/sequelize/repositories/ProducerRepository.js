@@ -19,8 +19,36 @@ class ProducerRepository extends IProducerRepository {
         return await producerSaved.save();
     }
 
+    async findById(id) {
+        const producer = await this.repository.findOne({ where: { id } });
+        return producer;
+    }
+
     async findByEmail(email) {
-        const producer = await this.repository.findOne({ where: { email }});
+        const producer = await this.repository.findOne({ where: { email } });
+        return producer;
+    }
+
+    async updateProducerData(producer) {
+        const producer = await this.repository.update({
+            name: producer.name,
+            email: producer.email
+        }, {
+            where: {
+                id: producer.id
+            }
+        });
+
+        return producer;
+    }
+
+    async updatePassword({ password, id }) {
+        const producer = await this.repository.update({
+            password
+        }, {
+            where: { id }
+        })
+
         return producer;
     }
 }

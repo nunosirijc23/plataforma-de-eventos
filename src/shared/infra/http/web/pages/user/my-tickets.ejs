@@ -25,48 +25,37 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% if (tickets.length === 0) { %>
+                                                <tr>Sem bilhetes comprados</tr>
+                                            <% } else { %> 
+                                            <% tickets.forEach( ticket => { %>  
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="/images/festa-musica.jpeg" alt="John Doe" />
+                                                        <img src="/images/<%= ticket.event.photo %>" alt="<%= ticket.event.name %>" />
                                                     </div>
                                                 </td>
-                                                <td>Festa da música</td>
-                                                <td>2018-09-27 02:12</td>
                                                 <td>
-                                                    <span class="status--process">Válido</span>
+                                                    <% let dateNow = new Date().getTime(); let eventDate = new Date(ticket.event.date).getTime() %> 
+                                                    <% if ( dateNow < eventDate ) { %> 
+                                                    <a href="/users/buy-ticket/<%= ticket.event.id  %>"><%= ticket.event.name %></a>
+                                                    <% } else { %>
+                                                        <%= ticket.event.name %>
+                                                    <% } %> 
                                                 </td>
-                                                <td>15.000 Akz</td>
+                                                <td><%= ticket.event.date %></td>
+                                                <td>
+                                                    <% if ( dateNow < eventDate ) { %> 
+                                                    <span class="role member">Válido</span>
+                                                    <% } else { %>
+                                                    <span class="role admin">Inválido</span>
+                                                    <% } %> 
+                                                </td>
+                                                <td><%= ticket.event.price %> Akz</td>
                                             </tr>
                                             <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <div class="image img-40">
-                                                        <img src="/images/festa-musica.jpeg" alt="John Doe" />
-                                                    </div>
-                                                </td>
-                                                <td>Festa da música</td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>
-                                                    <span class="status--process">Válido</span>
-                                                </td>
-                                                <td>15.000 Akz</td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <div class="image img-40">
-                                                        <img src="/images/show-de-semba.jpg" alt="John Doe" />
-                                                    </div>
-                                                </td>
-                                                <td>Show de semba</td>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>
-                                                    <span class="status--denied">Inválido</span>
-                                                </td>
-                                                <td>10.000 Akz</td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
+                                            <% }) %> 
+                                            <% } %> 
                                         </tbody>
                                     </table>
                                 </div>

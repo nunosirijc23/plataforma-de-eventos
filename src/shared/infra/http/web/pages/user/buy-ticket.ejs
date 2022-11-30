@@ -112,15 +112,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="container">
-                                            <div class="row margin-bottom-row">
-                                                <div class="col-lg-12">
-                                                    <a id="payment-button" class="btn btn-lg btn-primary btn-block" style="color: #FFFFFF;">
-                                                        <i class="fa fa-usd" aria-hidden="true"></i>&nbsp;Comprar bilhete
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="col-lg-8" style="width: 100%; height: 100%;">
                                         <div class="container">
@@ -139,7 +130,7 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <p>
-                                                    <h5>Bilhetes comprados:</h5> 320/<%= event.capacity %>
+                                                    <h5>Bilhetes comprados:</h5> <%= totalTicketBought %>/<%= event.capacity %>
                                                     </p>
                                                 </div>
                                             </div>
@@ -177,7 +168,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>00
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <a id="payment-button" class="btn btn-lg btn-primary btn-block" style="color: #FFFFFF;" data-toggle="modal" data-target="#buyTicketModal">
+                                            <i class="fa fa-usd" aria-hidden="true"></i>&nbsp;Comprar bilhete
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -185,4 +183,53 @@
             </section>
             <!-- END PAGE CONTAINER-->
         </div>
-<%- include('./../inc/shared/footer')  -%>
+
+        <div class="modal fade" id="buyTicketModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Comprar Bilhete</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="buyTicketForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input name="eventId" type="hidden" value="<%= event.id %>">
+                                                <input name="userId" type="hidden" value="<%= user.id %>">
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Método de pagamento
+                                                    </label>
+                                                    <select name="payment" class="form-control-sm form-control" required>
+                                                        <option selected disabled>--Escolha o método--</option>
+                                                        <option value="Multicaixa express">Multicaixa express</option>
+                                                        <option value="Referência">Referência</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Pagar</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+        </div>
+<%- include('./../inc/shared/footer') -%>
+<script src="/js/buy-ticket.js"></script>

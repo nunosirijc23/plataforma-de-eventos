@@ -13,14 +13,25 @@ class TicketRepository extends ITicketRepository {
             payment: ticket.payment,
             userId: ticket.userId,
             eventId: ticket.eventId,
-            createAt: ticket.createAt
+            createAt: ticket.createdAt
         });
 
         return await ticketSaved.save();
     }
 
     async findAllByEventId(eventId) {
-        const tickets = await this.repository.findAll({ where: { eventId }});
+        const tickets = await this.repository.findAll({ 
+            where: { eventId },
+            include: "user"
+        });
+        return tickets;
+    }
+
+    async findAllByUserId(userId) {
+        const tickets = await this.repository.findAll({ 
+            where: { userId },
+            include: "event"
+        });
         return tickets;
     }
 }

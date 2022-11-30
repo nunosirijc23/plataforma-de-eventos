@@ -62,16 +62,25 @@ class EventRepository extends IEventRepository {
         if (name && categoryId) {
             events = await this.repository.findAll({ 
                 where: { name, categoryId },
+                order: [
+                    ['date', 'DESC']
+                ],
                 include: ["category", "producer"]
             });
         } else if (name) {
             events = await this.repository.findAll({ 
                 where: { name },
+                order: [
+                    ['date', 'DESC']
+                ],
                 include: ["category", "producer"]
             });
         } else if (categoryId) {
             events = await this.repository.findAll({ 
                 where: { categoryId },
+                order: [
+                    ['date', 'DESC']
+                ],
                 include: ["category", "producer"]
             });
         } else {
@@ -92,6 +101,9 @@ class EventRepository extends IEventRepository {
     async findAllByProducerId(producerId) {
         const events = await this.repository.findAll({ 
             where: { producerId },
+            order: [
+                ['date', 'DESC']
+            ],
             include: "category"
         });
         return events;

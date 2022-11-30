@@ -5,7 +5,7 @@ class IEventRepository {
     findOneById(id) {}
     findAllByProducerId(producerId) {}
     update(event) {}
-    updatePhoto({ photo, id}) {}
+    updatePhoto({ photo, id }) {}
 }
 
 module.exports = IEventRepository;

@@ -14,22 +14,32 @@ const FindAllCategoriesUseCase = require('../../../../modules/events/usesCases/f
 const FindAllEventsUseCase = require('../../../../modules/events/usesCases/findAllEvents/findAllEventsUseCase');
 const EventsController = require('../controllers/users/EventsController');
 const FindOneEventByIdUseCase = require('../../../../modules/events/usesCases/findOneEventById/findOneEventByIdUseCase');
-const BuyTicketController = require('../controllers/users/BuyTickectController');
+const BuyTicketController = require('../controllers/users/BuyTicketController');
+const TicketRepository = require('../../../../modules/events/infra/sequelize/repositories/TicketRepository');
+const BuyTicketUseCase = require('../../../../modules/events/usesCases/buyTicket/buyTicketUseCase');
+const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
+const FindAllTicketsByUserIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByUserId/findAllTicketsByUserIdUseCase');
+const MyTicketsController = require('../controllers/users/MyTicketsController');
 
 const userRepository = new UserRepository();
 const eventRepository = new EventRepository();
 const categoryRepository = new CategoryRepository();
+const ticketRepository = new TicketRepository();
 
 const createUserUseCase = new CreateUserUseCase(userRepository);
 const authenticateUserUseCase = new AuthenticateUserUseCase(userRepository);
 const findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository);
 const findAllEventsUseCase = new FindAllEventsUseCase(eventRepository);
 const findOneEventByIdUseCase = new FindOneEventByIdUseCase(eventRepository);
+const buyTicketUseCase = new BuyTicketUseCase(ticketRepository, eventRepository);
+const findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepository);
+const findAllTicketsByUserIdUseCase = new FindAllTicketsByUserIdUseCase(ticketRepository);
 
 const registerController = new RegisterController(createUserUseCase);
 const loginController = new LoginController(authenticateUserUseCase);
 const eventsController = new EventsController(findAllEventsUseCase, findAllCategoriesUseCase);
-const buyTicketController = new BuyTicketController(findOneEventByIdUseCase);
+const buyTicketController = new BuyTicketController(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsByEventIdUseCase);
+const myTicketsController = new MyTicketsController(findAllTicketsByUserIdUseCase);
 
 const user = Router();
 
@@ -47,13 +57,8 @@ user.get('/events', menus, async (request, response) => {
     return await eventsController.render(request, response);
 }); // GET EVENTS PAGE
 
-user.get('/my-tickets', menus, (request, response) => {
-    response.render('user/my-tickets', {
-        title: 'Meus bilhetes',
-        search: false,
-        menus: request.menus,
-        user: request.session.user
-    })
+user.get('/my-tickets', menus, async (request, response) => {
+    return await myTicketsController.render(request, response);
 }); // GET MY-TICKET PAGE
 
 user.get('/buy-ticket/:id', async (request, response) => {
@@ -85,5 +90,20 @@ user.post('/login', async (request, response) => {
         return response.redirect('/users/events');
     }
 }); // POST LOGIN
+
+user.post('/buy-ticket', async (request, response) => {
+    const appMessage = await buyTicketController.handler(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }
+}); // POST BUY TICKET
 
 module.exports = user;

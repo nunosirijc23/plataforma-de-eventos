@@ -2,6 +2,7 @@ const { Router, response } = require('express');
 
 const menus = require('../middleware/producer/menus'); 
 const ensureAuthenticated = require('../middleware/producer/ensureAuthenticated');
+const { upload } = require('../../../../config/FileUpload');
 
 const ProducerRepository = require('../../../../modules/producer/infra/sequelize/repositories/ProducerRepository');
 const RegisterController = require('../controllers/producer/RegisterController');
@@ -14,13 +15,18 @@ const FindAllCategoriesUseCase = require('../../../../modules/events/usesCases/f
 const EventRepository = require('../../../../modules/events/infra/sequelize/repositories/EventRepository');
 const FindAllEventsByProducerIdUseCase = require('../../../../modules/events/usesCases/findAllEventsByProducerId/findAllEventsByProducerIdUseCase');
 const CreateEventUseCase = require('../../../../modules/events/usesCases/createEvent/createEventUseCase');
+const UpdateEventUseCase = require('../../../../modules/events/usesCases/updateEvent/updateEventUseCase');
 const MyEventsController = require('../controllers/producer/MyEventsController');
 const FindOneEventByIdUseCase = require('../../../../modules/events/usesCases/findOneEventById/findOneEventByIdUseCase');
-const EventController = require('../controllers/producer/EventController');  
+const UpdateEventPhotoUseCase = require('../../../../modules/events/usesCases/updateEventPhoto/updateEventPhotoUseCase');
+const EventController = require('../controllers/producer/EventController'); 
+const TicketRepository = require('../../../../modules/events/infra/sequelize/repositories/TicketRepository');
+const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
 
 let producerRepository = new ProducerRepository();
 let categoryRepository = new CategoryRepository();
 let eventRepository = new EventRepository();
+let ticketRepository = new TicketRepository();
 
 let createProducerUseCase = new CreateProducerUseCase(producerRepository);
 let authenticateProducerUseCase = new AuthenticateProducerUseCase(producerRepository);
@@ -28,12 +34,15 @@ let findAllCategoriesUseCase = new FindAllCategoriesUseCase(categoryRepository);
 let findAllEventsByProducerIdUseCase = new FindAllEventsByProducerIdUseCase(eventRepository);
 let findOneEventByIdUseCase = new FindOneEventByIdUseCase(eventRepository);
 let createEventUseCase = new CreateEventUseCase(eventRepository);
+let updateEventUseCase = new UpdateEventUseCase(eventRepository);
+let updateEventPhotoUseCase = new UpdateEventPhotoUseCase(eventRepository);
+let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepository);
 
 let registerController = new RegisterController(createProducerUseCase);
 let loginController = new LoginController(authenticateProducerUseCase);
 let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase);
-let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase);
-let eventController = new EventController(findOneEventByIdUseCase);
+let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase, updateEventUseCase, updateEventPhotoUseCase);
+let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase);
 
 const producer = Router();
 
@@ -86,7 +95,7 @@ producer.post('/login', async (request, response) => {
 });
 
 producer.post('/events', async (request, response) => {
-    const appMessage = await myEventsController.handler(request, response);
+    const appMessage = await myEventsController.handlerCreateEvent(request, response);
 
     if (appMessage.isError) {
         return response.json({
@@ -98,6 +107,36 @@ producer.post('/events', async (request, response) => {
             message: appMessage.message
         });
     }
-}) // POST CREATE EVENT
+}); // POST CREATE EVENT
+
+producer.put('/events', async (request, response) => {
+    const appMessage = await myEventsController.handlerUpdateEvent(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }
+}); // PUT UPDATE EVENT
+
+producer.patch('/events/photo', upload.single("photo"), async (request, response) => {
+    const appMessage = await myEventsController.handlerUpdatePhoto(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }
+}); // PATCH UPLOAD PHOTO
 
 module.exports = producer;

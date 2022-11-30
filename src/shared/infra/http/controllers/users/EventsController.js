@@ -10,12 +10,14 @@ class EvenstController {
         const events = await this.findAllEventsUseCase.execute({ name, categoryId });
         const categories = await this.findAllCategories.execute();
 
+        const eventsFiltersByDate = events.filter( event => new Date().getTime() < new Date(event.date).getTime());
+
         return response.render('user/index', {
             title: 'Eventos',
             search: true,
             menus: request.menus,
             user: request.session.user,
-            events,
+            events: eventsFiltersByDate,
             categories
         });
     }

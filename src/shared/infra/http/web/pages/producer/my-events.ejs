@@ -42,7 +42,7 @@
                                         </thead>
                                         <tbody>
                                             <% events.forEach( event => { %> 
-                                            <tr class="tr-shadow">
+                                            <tr class="tr-shadow" data-row="<%= JSON.stringify(event) %>">
                                                 <td>
                                                     <div class="image img-40">
                                                         <img src="/images/<%= event.photo %>" alt="<%= event.name %>" />
@@ -66,7 +66,7 @@
                                                 <td><% if (event.price === 0) { %> Grátis <% } else { %>  <%= event.price %> Akz <% } %></td>
                                                 <td>
                                                     <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item updateEvent" data-toggle="tooltip" data-placement="top"
                                                             title="Editar">
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </button>
@@ -74,7 +74,7 @@
                                                             title="Eliminar">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                                         </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item changePhoto" data-toggle="tooltip" data-placement="top"
                                                             title="Imagem">
                                                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                         </button>
@@ -231,6 +231,192 @@
             </div>
         </div>
         <!-- end modal create event -->
+
+        <!-- modal update  event -->
+        <div class="modal fade" id="updateEventModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Editar evento</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/producers/events" method="post" novalidate="novalidate" id="updateEventForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input name="producerId" type="hidden" value="<%= producer.id %>">
+                                                <input name="id" type="hidden">
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Nome
+                                                    </label>
+                                                    <input name="name" type="text" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-name" class="control-label mb-1">Categoria</label>
+                                                    <select name="categoryId" id="select"
+                                                        class="form-control-sm form-control">
+                                                        <option disabled selected>Escolha</option>
+                                                        <% categories.forEach( category => { %> 
+                                                        <option value="<%= category.id %>"><%= category.name %></option>
+                                                        <% }) %> 
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Data
+                                                    </label>
+                                                    <input name="date" type="date" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Horário de início
+                                                    </label>
+                                                    <input name="startTime" type="time"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Horário de termino
+                                                    </label>
+                                                    <input name="endTime" type="time"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Preço
+                                                    </label>
+                                                    <input name="price" type="number"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Número de bilhetes
+                                                    </label>
+                                                    <input name="capacity" type="number"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Provincia
+                                                    </label>
+                                                    <input type="text" name="province" class="form-control-sm form-control">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Municipio
+                                                    </label>
+                                                    <input name="county" type="text"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Bairro
+                                                    </label>
+                                                    <input name="district" type="text"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Rua
+                                                    </label>
+                                                    <input name="street" type="text"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-12">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Descrição
+                                                    </label>
+                                                    <textarea name="description" type="text" row="5"
+                                                        class="form-control-sm form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Editar evento</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Confirm</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!-- end modal update event -->
+
+        <div class="modal fade" id="changeEventPhotoModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumModalLabel">Alterar imagem</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/producers/events" method="post" novalidate="novalidate" id="changeEventPhotoForm" enctype="multipart/form-data">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input name="id" type="hidden">
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Imagem
+                                                    </label>
+                                                    <input name="photo" type="file"
+                                                        class="form-control-sm form-control" aria-required="true"
+                                                        aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Alterar imagem</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Confirm</button>
+                    </div> -->
+                </div>
+            </div>
+        </div>
     </div>
 <%- include('./../inc/shared/footer') -%>
 

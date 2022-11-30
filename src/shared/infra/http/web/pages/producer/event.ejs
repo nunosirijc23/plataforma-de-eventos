@@ -82,7 +82,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <p>
-                                            <h5>Bilhetes comprados:</h5> 0/<%= event.capacity %>
+                                            <h5>Bilhetes comprados:</h5> <%= totalTickets %>/<%= event.capacity %>
                                             </p>
                                         </div>
                                     </div>
@@ -132,43 +132,27 @@
                                                 <th></th>
                                                 <th>name</th>
                                                 <th>Telefone</th>
-                                                <th>Data da compra</th>
+                                                <th>Método de pagamento</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% if (tickets.length === 0) { %>
+                                                <tr>Sem bilhetes comprados</tr>
+                                            <% } else { %> 
+                                            <% tickets.forEach( ticket => { %>  
                                             <tr class="tr-shadow">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="/images/icon/user.png" alt="John Doe" />
+                                                        <img src="/images/<%= ticket.user.photo %>" alt="<%= ticket.user.name %>" />
                                                     </div>
                                                 </td>
-                                                <td>Pedro Joaquim</td>
-                                                <td>945678934</td>
-                                                <td>2018-09-27 02:12</td>
+                                                <td><%= ticket.user.name %></td>
+                                                <td><%= ticket.user.phone %></td>
+                                                <td><%= ticket.payment %></td>
                                             </tr>
                                             <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <div class="image img-40">
-                                                        <img src="/images/icon/user.png" alt="John Doe" />
-                                                    </div>
-                                                </td>
-                                                <td>Paula Matilde</td>
-                                                <td>925658434</td>
-                                                <td>2018-09-27 02:12</td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
-                                            <tr class="tr-shadow">
-                                                <td>
-                                                    <div class="image img-40">
-                                                        <img src="/images/icon/user.png" alt="John Doe" />
-                                                    </div>
-                                                </td>
-                                                <td>Pedro Joaquim</td>
-                                                <td>945678934</td>
-                                                <td>2018-09-27 02:12</td>
-                                            </tr>
-                                            <tr class="spacer"></tr>
+                                            <% }) %> 
+                                            <% } %> 
                                         </tbody>
                                     </table>
                                 </div>

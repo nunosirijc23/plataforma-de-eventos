@@ -21,6 +21,10 @@ redisClient.on('connect', _ => {
     console.log("CONNECTED WITH REDIS!");
 });
 
+redisClient.on('error', _ => {
+    console.log("DOES NOT FIND ANY REDIS CONNECTION!")
+})
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'web', 'public')));
