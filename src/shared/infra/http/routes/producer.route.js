@@ -1,4 +1,4 @@
-const { Router, response } = require('express');
+const { Router } = require('express');
 
 const menus = require('../middleware/producer/menus'); 
 const ensureAuthenticated = require('../middleware/producer/ensureAuthenticated');
@@ -6,9 +6,9 @@ const { upload } = require('../../../../config/FileUpload');
 
 const ProducerRepository = require('../../../../modules/producer/infra/sequelize/repositories/ProducerRepository');
 const RegisterController = require('../controllers/producer/RegisterController');
-const CreateProducerUseCase = require('../../../../modules/producer/usesCases/createProducer/createProducerUseCase');
+const CreateProducerUseCase = require('../../../../modules/producer/useCases/createProducer/createProducerUseCase');
 const LoginController = require('../controllers/producer/LoginController');
-const AuthenticateProducerUseCase = require('../../../../modules/producer/usesCases/authenticateProducer/authenticateProducerUseCase');
+const AuthenticateProducerUseCase = require('../../../../modules/producer/useCases/authenticateProducer/authenticateProducerUseCase');
 const DashboardController = require('../controllers/producer/DashboardController');
 const CategoryRepository = require('../../../../modules/events/infra/sequelize/repositories/CategoryRepository');
 const FindAllCategoriesUseCase = require('../../../../modules/events/usesCases/findAllCategories/findAllCategoriesUseCase');
@@ -22,6 +22,8 @@ const UpdateEventPhotoUseCase = require('../../../../modules/events/usesCases/up
 const EventController = require('../controllers/producer/EventController'); 
 const TicketRepository = require('../../../../modules/events/infra/sequelize/repositories/TicketRepository');
 const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
+const UpdateProducerDataUseCase = require('../../../../modules/producer/useCases/updateProducerData/updateProducerDataUseCase');
+const ChangeProducerPasswordUseCase = require('../../../../modules/producer/useCases/changeProducerPassword/changeProducerPasswordUseCase');
 
 let producerRepository = new ProducerRepository();
 let categoryRepository = new CategoryRepository();
@@ -37,10 +39,12 @@ let createEventUseCase = new CreateEventUseCase(eventRepository);
 let updateEventUseCase = new UpdateEventUseCase(eventRepository);
 let updateEventPhotoUseCase = new UpdateEventPhotoUseCase(eventRepository);
 let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepository);
+const updateProducerDataUseCase = new UpdateProducerDataUseCase(producerRepository);
+const changeProducerPasswordUseCase = new ChangeProducerPasswordUseCase(producerRepository);
 
 let registerController = new RegisterController(createProducerUseCase);
 let loginController = new LoginController(authenticateProducerUseCase);
-let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase);
+let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase, updateProducerDataUseCase, changeProducerPasswordUseCase);
 let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase, updateEventUseCase, updateEventPhotoUseCase);
 let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase);
 
@@ -138,5 +142,36 @@ producer.patch('/events/photo', upload.single("photo"), async (request, response
         });
     }
 }); // PATCH UPLOAD PHOTO
+
+producer.put('/changeData', async (request, response) => {
+    const appMessage = await dashboardController.handlerUpdateProducerData(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }    
+}) // PUT UPDATE PRODUCER DATA
+
+producer.patch('/changePassword', async (request, response) => {
+    const appMessage = await dashboardController.handlerUpdateProducerPassword(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }    
+}) // PUT UPDATE USER PASSWORD
+
 
 module.exports = producer;

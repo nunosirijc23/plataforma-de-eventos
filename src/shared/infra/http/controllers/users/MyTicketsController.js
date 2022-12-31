@@ -8,6 +8,7 @@ class MyTicketsController {
 
         response.render('user/my-tickets', {
             title: 'Meus bilhetes',
+            isIndex: false,
             search: false,
             menus: request.menus,
             user: request.session.user,

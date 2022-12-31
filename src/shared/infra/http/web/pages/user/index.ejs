@@ -36,6 +36,7 @@
             </section>
             <!-- END PAGE CONTAINER-->
         </div>
+        
         <!-- modal search event -->
         <div class="modal fade" id="searchEventModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalSearchEventLabel"
         aria-hidden="true">
@@ -86,13 +87,162 @@
                         </div>
                     </form>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Confirm</button>
-                </div> -->
             </div>
         </div>
-    </div>
-    <!-- end modal search event -->
+        </div>
+        <!-- end modal search event -->
+
+        <!-- modal update user data -->
+        <div class="modal fade" id="updateUserDataModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalUpdateUserDataLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumUpdateUserDataLabel">Alterar dados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="updateUserDataForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input type="hidden" name="id" value="<%= user.id %>">
+                                                <div class="form-group col-sm-6">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Nome
+                                                    </label>
+                                                    <input name="name" type="text" value="<%= user.name %>" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        E-mail
+                                                    </label>
+                                                    <input name="email" type="text" value="<%= user.email %>" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Telefone
+                                                    </label>
+                                                    <input name="phone" type="number" value="<%= user.phone %>" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Alterar dados</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal update user data -->
+
+        <!-- modal change user photo-->
+        <div class="modal fade" id="changeUserPhotoModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalChangeUserPhotoLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumChangeUserPhotoLabel">Alterar Foto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="changeUserPhotoForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input type="hidden" name="id" value="<%= user.id %>">
+                                                <div class="form-group col-sm-6">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Escolha a foto
+                                                    </label>
+                                                    <input name="photo" type="file" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Alterar foto</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal change user photo-->
+
+        <!-- modal change user password-->
+        <div class="modal fade" id="changeUserPasswordModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalChangeUserPasswordLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mediumChangeUserPasswordLabel">Alterar Senha</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="changeUserPasswordForm">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="container">
+                                            <div class="row">
+                                                <input type="hidden" name="id" value="<%= user.id %>">
+                                                <div class="form-group col-sm-6">
+                                                    <label for="cc-payment" class="control-label mb-1">
+                                                        Nova senha
+                                                    </label>
+                                                    <input name="password" type="password" class="form-control-sm form-control"
+                                                        aria-required="true" aria-invalid="false">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div>
+                                            <button id="payment-button" type="submit"
+                                                class="btn btn-lg btn-info btn-block">
+                                                <span id="payment-button-amount">Alterar senha</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end modal change user password-->
             
 <%- include('./../inc/shared/footer')  -%> 
+<script src="/js/events.js"></script>

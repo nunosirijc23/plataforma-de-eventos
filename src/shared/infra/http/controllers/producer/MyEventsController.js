@@ -53,7 +53,8 @@ class MyEventsController {
                 description,
                 categoryId,
                 producerId
-            })
+            });
+
         } catch (error) {
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
@@ -110,7 +111,8 @@ class MyEventsController {
                 eventId: id
             });
         } catch (error) {
-            await deleteFile(file);
+            await deleteFile(file.filename);
+            if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }
 

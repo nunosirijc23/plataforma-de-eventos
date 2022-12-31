@@ -29,7 +29,7 @@
                                                 <tr>Sem bilhetes comprados</tr>
                                             <% } else { %> 
                                             <% tickets.forEach( ticket => { %>  
-                                            <tr class="tr-shadow">
+                                            <tr class="tr-shadow" data-row="<%= JSON.stringify({ticket, user}) %>">
                                                 <td>
                                                     <div class="image img-40">
                                                         <img src="/images/<%= ticket.event.photo %>" alt="<%= ticket.event.name %>" />
@@ -52,6 +52,14 @@
                                                     <% } %> 
                                                 </td>
                                                 <td><%= ticket.event.price %> Akz</td>
+                                                <% if ( dateNow < eventDate ) { %> 
+                                                <td>
+                                                    <button class="item downloadTicket" data-toggle="tooltip" data-placement="top"
+                                                    title="Baixar o bilhete">
+                                                        <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <% } %>
                                             </tr>
                                             <tr class="spacer"></tr>
                                             <% }) %> 
@@ -67,3 +75,4 @@
             </div>
         </div>
 <%- include('./../inc/shared/footer')  -%>
+<script src="/js/my-ticket.js"></script>

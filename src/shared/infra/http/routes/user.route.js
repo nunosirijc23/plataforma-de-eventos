@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { upload } = require('../../../../config/FileUpload');
 
 const menus = require('../middleware/users/menus');
 const ensureAuthenticated = require('../middleware/users/ensureAuthenticated');
@@ -20,6 +21,9 @@ const BuyTicketUseCase = require('../../../../modules/events/usesCases/buyTicket
 const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
 const FindAllTicketsByUserIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByUserId/findAllTicketsByUserIdUseCase');
 const MyTicketsController = require('../controllers/users/MyTicketsController');
+const UpdateUserDataUseCase = require('../../../../modules/user/usesCases/updateUserData/updateUserDataUseCase');
+const UpdateUserPhotoUseCase = require('../../../../modules/user/usesCases/updateUserPhoto/updateUserPhotoUseCase');
+const ChangeUserPasswordUseCase = require('../../../../modules/user/usesCases/changeUserPassword/changeUserPasswordUseCase');
 
 const userRepository = new UserRepository();
 const eventRepository = new EventRepository();
@@ -34,10 +38,14 @@ const findOneEventByIdUseCase = new FindOneEventByIdUseCase(eventRepository);
 const buyTicketUseCase = new BuyTicketUseCase(ticketRepository, eventRepository);
 const findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepository);
 const findAllTicketsByUserIdUseCase = new FindAllTicketsByUserIdUseCase(ticketRepository);
+const updateUserDataUseCase = new UpdateUserDataUseCase(userRepository);
+const updateUserPhotoUseCase = new UpdateUserPhotoUseCase(userRepository);
+const changeUserPasswordUseCase = new ChangeUserPasswordUseCase(userRepository);
+
 
 const registerController = new RegisterController(createUserUseCase);
 const loginController = new LoginController(authenticateUserUseCase);
-const eventsController = new EventsController(findAllEventsUseCase, findAllCategoriesUseCase);
+const eventsController = new EventsController(findAllEventsUseCase, findAllCategoriesUseCase, updateUserDataUseCase, updateUserPhotoUseCase, changeUserPasswordUseCase);
 const buyTicketController = new BuyTicketController(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsByEventIdUseCase);
 const myTicketsController = new MyTicketsController(findAllTicketsByUserIdUseCase);
 
@@ -105,5 +113,50 @@ user.post('/buy-ticket', async (request, response) => {
         });
     }
 }); // POST BUY TICKET
+
+user.put('/changeData', async (request, response) => {
+    const appMessage = await eventsController.handlerUpdateUserData(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }    
+}) // PUT UPDATE USER DATA
+
+user.patch('/changePhoto', upload.single("photo"), async (request, response) => {
+    const appMessage = await eventsController.handlerUpdateUserPhoto(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }    
+}) // PUT UPDATE USER PHOTO
+
+user.patch('/changePassword', async (request, response) => {
+    const appMessage = await eventsController.handlerUpdateUserPassword(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }    
+}) // PUT UPDATE USER PASSWORD
 
 module.exports = user;

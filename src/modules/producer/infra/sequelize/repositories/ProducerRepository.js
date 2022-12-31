@@ -30,7 +30,7 @@ class ProducerRepository extends IProducerRepository {
     }
 
     async updateProducerData(producer) {
-        const producer = await this.repository.update({
+        const producerUpdated = await this.repository.update({
             name: producer.name,
             email: producer.email
         }, {
@@ -39,7 +39,7 @@ class ProducerRepository extends IProducerRepository {
             }
         });
 
-        return producer;
+        return producerUpdated;
     }
 
     async updatePassword({ password, id }) {

@@ -65,20 +65,22 @@
                                                 <td><%= event.capacity %></td>
                                                 <td><% if (event.price === 0) { %> Grátis <% } else { %>  <%= event.price %> Akz <% } %></td>
                                                 <td>
+                                                    <% if ( dateNow < eventDate ) { %>
                                                     <div class="table-data-feature">
                                                         <button class="item updateEvent" data-toggle="tooltip" data-placement="top"
                                                             title="Editar">
                                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                         </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <!-- <button class="item" data-toggle="tooltip" data-placement="top"
                                                             title="Eliminar">
                                                             <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </button>
+                                                        </button> -->
                                                         <button class="item changePhoto" data-toggle="tooltip" data-placement="top"
                                                             title="Imagem">
                                                             <i class="fa fa-picture-o" aria-hidden="true"></i>
                                                         </button>
                                                     </div>
+                                                    <% } %> 
                                                 </td>
                                             </tr>
                                             <tr class="spacer"></tr>

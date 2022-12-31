@@ -15,6 +15,7 @@ class BuyTicketController {
 
         return response.render('user/buy-ticket', {
             title: 'Comprar bilhete',
+            isIndex: false,
             search: false,
             user: request.session.user,            
             event,

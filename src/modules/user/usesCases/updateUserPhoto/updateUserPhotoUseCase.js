@@ -8,10 +8,11 @@ class UpdateUserPhotoUseCase {
     async execute({ photo, id }) {
         const user = await this.userRepository.findById(id);
         await deleteFile(user.photo);
-        const userUpdated = await this.userRepository.updatePhoto({
+        await this.userRepository.updatePhoto({
             photo,
             id
         });
+        const userUpdated = await this.userRepository.findById(id);
         return userUpdated;
     }
 

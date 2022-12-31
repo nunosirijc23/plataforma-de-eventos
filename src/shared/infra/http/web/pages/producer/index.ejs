@@ -137,5 +137,106 @@
             </div>
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
+            
+            <!-- modal update user data -->
+            <div class="modal fade" id="updateProducerDataModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalUpdateProducerDataLabel"
+            aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumUpdateProducerDataLabel">Alterar dados</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="updateProducerDataForm">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <input type="hidden" name="id" value="<%= producer.id %>">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="cc-payment" class="control-label mb-1">
+                                                            Nome
+                                                        </label>
+                                                        <input name="name" type="text" value="<%= producer.name %>" class="form-control-sm form-control"
+                                                            aria-required="true" aria-invalid="false">
+                                                    </div>
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="cc-payment" class="control-label mb-1">
+                                                            E-mail
+                                                        </label>
+                                                        <input name="email" type="text" value="<%= producer.email %>" class="form-control-sm form-control"
+                                                            aria-required="true" aria-invalid="false">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div>
+                                                <button id="payment-button" type="submit"
+                                                    class="btn btn-lg btn-info btn-block">
+                                                    <span id="payment-button-amount">Alterar dados</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal update user data -->
+
+            <!-- modal change user password-->
+            <div class="modal fade" id="changeProducerPasswordModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalChangeProducerPasswordLabel"
+            aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mediumChangeProducerPasswordLabel">Alterar Senha</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="changeProducerPasswordForm">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <input type="hidden" name="id" value="<%= producer.id %>">
+                                                    <div class="form-group col-sm-6">
+                                                        <label for="cc-payment" class="control-label mb-1">
+                                                            Nova senha
+                                                        </label>
+                                                        <input name="password" type="password" class="form-control-sm form-control"
+                                                            aria-required="true" aria-invalid="false">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div>
+                                                <button id="payment-button" type="submit"
+                                                    class="btn btn-lg btn-info btn-block">
+                                                    <span id="payment-button-amount">Alterar senha</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end modal change user password-->
         </div>
+
 <%- include('./../inc/shared/footer') -%>
+<script src="/js/dashboard.js"></script>

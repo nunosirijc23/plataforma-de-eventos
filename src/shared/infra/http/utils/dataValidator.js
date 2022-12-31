@@ -166,5 +166,76 @@ function validateEventData(name, date, startTime, endTime, price, capacity, prov
   return validator;
 };
 
-module.exports = { validateUserData, validateProducerData, validateLoginData, validateEventData };
+function validateUpdateUserData(name, email, phone) {
+  const schema = joi.object({
+    name: joi.string().trim().required().messages({
+      "string.empty": "Preencha os campos vazios!",
+      "string.base": "Nome inválido!",
+      "any.required": "Nome é obrigatório!",
+    }),
+    email: joi.string().email().required().messages({
+      "string.empty": "Preencha os campos vazios!",
+      "string.base": "E-mail inválido!",
+      "string.email": "E-mail inválido!",
+      "any.required": "E-mail é obrigatório!",
+    }),
+    phone: joi.string().required().pattern(new RegExp('^9[0-9]')).min(9).max(9).messages({
+      "string.empty": "Preencha os campos vazios!",
+      'string.min': 'Número de telefone inválido!',
+      'string.max': 'Número de telefone inválido!',
+      'string.pattern.base': 'Número de telefone inválido!',
+      'any.required': 'Número de telefone é obrigatório!'
+    })
+  });
+
+  const validator = validate(schema, {
+    name,
+    email,
+    phone
+  });
+
+  return validator;
+};
+
+function validateUpdateProducerData(name, email) {
+  const schema = joi.object({
+    name: joi.string().trim().required().messages({
+      "string.empty": "Preencha os campos vazios!",
+      "string.base": "Nome inválido!",
+      "any.required": "Nome é obrigatório!",
+    }),
+    email: joi.string().email().required().messages({
+      "string.empty": "Preencha os campos vazios!",
+      "string.base": "E-mail inválido!",
+      "string.email": "E-mail inválido!",
+      "any.required": "E-mail é obrigatório!",
+    })
+  });
+
+  const validator = validate(schema, {
+    name,
+    email
+  });
+
+  return validator;
+};
+
+function validatePassword(password) {
+  const schema = joi.object({
+    password: joi.string().trim().required().min(6).messages({
+      "string.empty": "Preencha os campos vazios!",
+      "string.min": "Senha deve ter pelo menos 6 caracteres!",
+      'any.required': 'Senha é obrigatória!'
+    })
+  });
+
+  const validator = validate(schema, {
+    password
+  });
+
+  return validator;
+}
+
+
+module.exports = { validateUserData, validateProducerData, validateLoginData, validateEventData, validateUpdateUserData, validatePassword, validateUpdateProducerData };
   

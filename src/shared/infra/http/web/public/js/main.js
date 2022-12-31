@@ -1249,9 +1249,6 @@
   }
 
 })(jQuery);
-
-
-
 (function ($) {
     // USE STRICT
     "use strict";
@@ -1671,3 +1668,9 @@
   }
 
 })(jQuery);
+
+const socket = io();
+
+socket.on("message", message => {
+  console.log(message);
+});

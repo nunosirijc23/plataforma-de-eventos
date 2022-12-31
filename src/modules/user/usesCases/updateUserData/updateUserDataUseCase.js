@@ -12,7 +12,8 @@ class UpdateUserDataUseCase {
         userToUpdate.name = name;
         userToUpdate.email = email;
         userToUpdate.phone = phone;
-        const userFetched = await this.userRepository.updateUserData(userToUpdate);
+        await this.userRepository.updateUserData(userToUpdate);
+        const userFetched = await this.userRepository.findById(id);
         return userFetched;
     }
 }

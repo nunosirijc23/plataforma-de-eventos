@@ -56,7 +56,7 @@ class UserRepository extends IUserRepository {
     }
 
     async updateUserData(user) {
-        const user = await this.repository.update({
+        const userUpdated = await this.repository.update({
             name: user.name,
             email: user.email, 
             phone: user.phone
@@ -64,7 +64,7 @@ class UserRepository extends IUserRepository {
             where: { id: user.id }
         });
 
-        return user;
+        return userUpdated;
     }
 
     async updatePassword({ password, id }) {

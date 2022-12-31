@@ -10,25 +10,30 @@
                                 </a>
                             </div>
                             <div class="header-button2">
+                                <% if (isIndex) { %> 
                                 <div class="header-button-item mr-0 js-sidebar-btn">
                                     <i class="zmdi zmdi-menu"></i>
                                 </div>
                                 <div class="setting-menu js-right-sidebar d-none d-lg-block">
                                     <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Meus dados</a>
+                                            <a href="#" id="btnUpdateUserData" data-toggle="modal" data-target="#updateUserDataModal">
+                                                <i class="zmdi zmdi-account"></i>Meus dados
+                                            </a>
                                         </div>
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Alterar foto</a>
+                                            <a href="#" id="btnChangeUserPhoto" data-toggle="modal" data-target="#changeUserPhotoModal">
+                                                <i class="fa fa-picture-o" aria-hidden="true"></i>Alterar foto
+                                            </a>
                                         </div>
                                         <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-money-box"></i>Alterar senha</a>
+                                            <a href="#" id="btnChangeUserPassword" data-toggle="modal" data-target="#changeUserPasswordModal">
+                                                <i class="fa fa-key" aria-hidden="true"></i>Alterar senha
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
+                                <% } %> 
                             </div>
                         </div>
                     </div>
@@ -45,7 +50,7 @@
                 <div class="menu-sidebar2__content js-scrollbar2">
                     <div class="account2">
                         <div class="image img-cir img-120">
-                            <img src="/images/<%= user.photo %>" alt="<%= user.name %>" />
+                            <img style="height: 100%;" src="/images/<%= user.photo %>" alt="<%= user.name %>" />
                         </div>
                         <h4 class="name"><%= user.name %></h4>
                         <a href="/users/logout">Sair</a>
