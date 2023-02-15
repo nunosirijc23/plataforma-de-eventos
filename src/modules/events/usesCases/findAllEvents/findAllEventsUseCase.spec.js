@@ -2,7 +2,7 @@ const EventRepositoryInMemory = require('../../repositories/in-memory/EventRepos
 const FindAllEventsUseCase = require('./findAllEventsUseCase');
 const CreateEventUseCase = require('../createEvent/createEventUseCase');
 const ProducerRepositoryInMemory = require('../../../producer/repositories/in-memory/ProducerRepositoryInMemory');
-const CreateProducerUseCase = require('../../../producer/usesCases/createProducer/createProducerUseCase');
+const CreateProducerUseCase = require('./../../../producer/useCases/createProducer/createProducerUseCase');
 const CategoryRepositoryInMemory = require('../../repositories/in-memory/CategoryRepositoryInMemory');
 const Category = require('../../entity/category');
 
