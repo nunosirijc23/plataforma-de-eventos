@@ -32,18 +32,18 @@
                                             <tr class="tr-shadow" data-row="<%= JSON.stringify({ticket, user}) %>">
                                                 <td>
                                                     <div class="image img-40">
-                                                        <img src="/images/<%= ticket.event.photo %>" alt="<%= ticket.event.name %>" />
+                                                        <img src="/images/<%= ticket.photo %>" alt="<%= ticket.name %>" />
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <% let dateNow = new Date().getTime(); let eventDate = new Date(ticket.event.date).getTime() %> 
+                                                    <% let dateNow = new Date().getTime(); let eventDate = new Date(ticket.date).getTime() %> 
                                                     <% if ( dateNow < eventDate ) { %> 
-                                                    <a href="/users/buy-ticket/<%= ticket.event.id  %>"><%= ticket.event.name %></a>
+                                                    <a href="/users/buy-ticket/<%= ticket.id  %>"><%= ticket.name %></a>
                                                     <% } else { %>
-                                                        <%= ticket.event.name %>
+                                                        <%= ticket.name %>
                                                     <% } %> 
                                                 </td>
-                                                <td><%= ticket.event.date %></td>
+                                                <td><%= ticket.date %></td>
                                                 <td>
                                                     <% if ( dateNow < eventDate ) { %> 
                                                     <span class="role member">Válido</span>
@@ -51,7 +51,7 @@
                                                     <span class="role admin">Inválido</span>
                                                     <% } %> 
                                                 </td>
-                                                <td><%= ticket.event.price %> Akz</td>
+                                                <td><%= ticket.price %> Akz</td>
                                                 <% if ( dateNow < eventDate ) { %> 
                                                 <td>
                                                     <button class="item downloadTicket" data-toggle="tooltip" data-placement="top"

@@ -30,7 +30,7 @@ class TicketRepository extends ITicketRepository {
     async findAllByUserId(userId) {
         const tickets = await this.repository.findAll({ 
             where: { userId },
-            // include: "event"
+            include: "event"
         });
 
         return tickets;

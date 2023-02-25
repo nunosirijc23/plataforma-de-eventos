@@ -21,6 +21,7 @@ const FindOneEventByIdUseCase = require('../../../../modules/events/usesCases/fi
 const UpdateEventPhotoUseCase = require('../../../../modules/events/usesCases/updateEventPhoto/updateEventPhotoUseCase');
 const EventController = require('../controllers/producer/EventController'); 
 const TicketRepository = require('../../../../modules/events/infra/sequelize/repositories/TicketRepository');
+const TicketRepositoryMYSQL = require('../../../../modules/events/infra/mysql/repositories/TicketRepositoryMYSQL');
 const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
 const UpdateProducerDataUseCase = require('../../../../modules/producer/useCases/updateProducerData/updateProducerDataUseCase');
 const ChangeProducerPasswordUseCase = require('../../../../modules/producer/useCases/changeProducerPassword/changeProducerPasswordUseCase');
@@ -29,6 +30,7 @@ let producerRepository = new ProducerRepository();
 let categoryRepository = new CategoryRepository();
 let eventRepository = new EventRepository();
 let ticketRepository = new TicketRepository();
+let ticketRepositoryMYSQL = new TicketRepositoryMYSQL();
 
 let createProducerUseCase = new CreateProducerUseCase(producerRepository);
 let authenticateProducerUseCase = new AuthenticateProducerUseCase(producerRepository);
@@ -38,7 +40,7 @@ let findOneEventByIdUseCase = new FindOneEventByIdUseCase(eventRepository);
 let createEventUseCase = new CreateEventUseCase(eventRepository);
 let updateEventUseCase = new UpdateEventUseCase(eventRepository);
 let updateEventPhotoUseCase = new UpdateEventPhotoUseCase(eventRepository);
-let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepository);
+let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepositoryMYSQL);
 const updateProducerDataUseCase = new UpdateProducerDataUseCase(producerRepository);
 const changeProducerPasswordUseCase = new ChangeProducerPasswordUseCase(producerRepository);
 
