@@ -68,8 +68,6 @@
                                                 <th>Horário</th>
                                                 <th>Categoria</th>
                                                 <th>status</th>
-                                                <th>Total de Bilhetes</th>
-                                                <th>Bilhete Preço</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -99,33 +97,8 @@
                                                             <span class="role member">Realizado</span>
                                                             <% } %> 
                                                         </td>
-                                                        <td><%= events[0].capacity %></td>
-                                                        <td><% if (events[0].price === 0) { %> Grátis <% } else { %>  <%= events[0].price %> Akz <% } %></td>
                                                     </tr>
                                                     <tr class="spacer"></tr>
-                                                    <tr class="tr-shadow">
-                                                        <td>
-                                                            <div class="image img-40">
-                                                                <img src="/images/<%= events[1].photo %>" alt="<%= events[1].name %>" />
-                                                            </div>
-                                                        </td>
-                                                        <td><a href="/producers/event/<%= events[1].id %>"><%= events[1].name %></a></td>
-                                                        <td><%= events[1].date %></td>
-                                                        <% startTime = events[1].startTime.split(":")[0] + ":" + events[1].startTime.split(":")[1]%> 
-                                                        <% endTime = events[1].endTime.split(":")[0] + ":" + events[1].endTime.split(":")[1]%> 
-                                                        <td><%= startTime %> às <%= endTime %></td>
-                                                        <td><%= events[1].category.name %></td>
-                                                        <td>
-                                                            <% dateNow = new Date().getTime(); eventDate = new Date(events[1].date).getTime() %> 
-                                                            <% if ( dateNow < eventDate ) { %> 
-                                                            <span class="role user">Pendente</span>
-                                                            <% } else { %>
-                                                            <span class="role member">Realizado</span>
-                                                            <% } %> 
-                                                        </td>
-                                                        <td><%= events[1].capacity %></td>
-                                                        <td><% if (events[1].price === 0) { %> Grátis <% } else { %>  <%= events[1].price %> Akz <% } %></td>
-                                                    </tr>
                                             <% } %>  
                                         </tbody>
                                     </table>
