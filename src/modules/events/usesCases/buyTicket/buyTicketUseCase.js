@@ -14,7 +14,7 @@ class BuyTicketUseCase {
 
         if (ticketsBought === event.capacity) throw new AppErrorException("Bilhetes esgotados!");
 
-        const ticket = new Ticket(payment, userId, eventId);
+        const ticket = new Ticket(payment, userId, eventId, bankReceiptDirectory, null);
         const ticketSaved = this.ticketRepository.create(ticket);
         return ticketSaved;
     }
