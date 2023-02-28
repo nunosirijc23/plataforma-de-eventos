@@ -13,10 +13,10 @@ class TicketRepository extends ITicketRepository {
             payment: ticket.payment,
             userId: ticket.userId,
             eventId: ticket.eventId,
+            bankReceiptDirectory: ticket.bankReceiptDirectory,
+            isApproved: ticket.isApproved,
             createAt: ticket.createdAt
         });
-
-        console.log("Aqui", ticket);
 
         return await ticketSaved.save();
     }
