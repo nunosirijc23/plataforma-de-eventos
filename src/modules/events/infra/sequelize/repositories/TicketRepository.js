@@ -16,6 +16,8 @@ class TicketRepository extends ITicketRepository {
             createAt: ticket.createdAt
         });
 
+        console.log("Aqui", ticket);
+
         return await ticketSaved.save();
     }
 

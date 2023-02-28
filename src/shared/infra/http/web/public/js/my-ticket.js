@@ -28,7 +28,7 @@ btnDownloadTicket.forEach(btn => {
                         headerRows: 1,
                         body: [
                             [{text: 'Cliente', style: 'tableHeader'}, {text: 'Evento', style: 'tableHeader'}, {text: 'Preço', style: 'tableHeader'}, {text: 'Data e Hora', style: 'tableHeader'}],
-                            [`${data.user.name}`, `${data.ticket.event.name}`, `${data.ticket.event.price} AOA`, `${data.ticket.event.date} as ${data.ticket.event.startTime}`],
+                            [`${data.user.name}`, `${data.ticket.name}`, `${data.ticket.price} AOA`, `${data.ticket.date} as ${data.ticket.startTime}`],
                         ]
                     },
                     layout: 'headerLineOnly'

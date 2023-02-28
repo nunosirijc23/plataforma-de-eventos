@@ -33,7 +33,6 @@ class BuyTicketController {
                 payment
             });
         } catch (error) {
-            console.log(error);
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }
