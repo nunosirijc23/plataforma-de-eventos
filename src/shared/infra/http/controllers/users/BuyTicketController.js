@@ -1,5 +1,5 @@
 const AppMessage = require("../../../../../config/AppMessage");
-const { verifyPDFFile } = require('../../../../../config/FileUpload');
+const { verifyPDFFile, deleteFile } = require('../../../../../config/FileUpload');
 
 class BuyTicketController {
     constructor(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsByEventIdUseCase) {
@@ -38,6 +38,7 @@ class BuyTicketController {
                 bankReceiptDirectory: file.filename
             });
         } catch (error) {
+            await deleteFile(file)
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }

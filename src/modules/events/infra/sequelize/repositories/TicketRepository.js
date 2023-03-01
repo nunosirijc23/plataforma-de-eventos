@@ -15,7 +15,7 @@ class TicketRepository extends ITicketRepository {
             eventId: ticket.eventId,
             bankReceiptDirectory: ticket.bankReceiptDirectory,
             isApproved: ticket.isApproved,
-            createAt: ticket.createdAt
+            createdAt: ticket.createdAt
         });
 
         return await ticketSaved.save();

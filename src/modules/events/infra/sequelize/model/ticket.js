@@ -8,7 +8,9 @@ class Ticket extends Model {}
 
 Ticket.init({
     payment: DataTypes.STRING,
-    createAt: DataTypes.DATE
+    bankReceiptDirectory: DataTypes.TEXT,
+    isApproved: DataTypes.BOOLEAN,
+    createdAt: DataTypes.DATE
 }, {
     sequelize,
     tableName: "tickets",

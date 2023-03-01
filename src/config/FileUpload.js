@@ -3,6 +3,8 @@ const path = require('path')
 const crypto = require('crypto')
 const fs = require('fs')
 
+const AppErrorException = require('../config/AppErrorException')
+
 // config upload path directory
 const uploadPath = path.resolve(__dirname, '..', 'shared', 'infra', 'http', 'web', 'public', 'images');
 
@@ -29,7 +31,7 @@ async function deleteFile(filename) {
 function verifyImage(file) {
     return new Promise((resolve, reject) => {
         if (['image/png', 'image/jpeg', 'image/jpg'].indexOf(file.mimetype) <= -1) {
-            throw new Error('Formato da imagem não suportado!')
+            throw new AppErrorException('Formato da imagem não suportado!', true);
         }
 
         // if (file.size > 5242880) {
@@ -44,7 +46,7 @@ function verifyPDFFile(file) {
         const extension = path.extname(file.originalname);
         
         if (extension !== '.pdf') {
-            throw new Error('Formato do ficheiro não suportado!');
+            throw new AppErrorException('Formato do ficheiro não suportado!', true);
         }
 
         resolve(true);
