@@ -101,7 +101,7 @@ user.post('/login', async (request, response) => {
     }
 }); // POST LOGIN
 
-user.post('/buy-ticket', async (request, response) => {
+user.post('/buy-ticket', upload.single('file'), async (request, response) => {
     const appMessage = await buyTicketController.handler(request, response);
 
     if (appMessage.isError) {

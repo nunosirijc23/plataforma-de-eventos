@@ -39,4 +39,16 @@ function verifyImage(file) {
     });
 } // verifyImage
 
-module.exports = { upload, deleteFile, verifyImage, uploadPath }
+function verifyPDFFile(file) {
+    return new Promise((resolve, reject) => {
+        const extension = path.extname(file.originalname);
+        
+        if (extension !== '.pdf') {
+            throw new Error('Formato do ficheiro não suportado!');
+        }
+
+        resolve(true);
+    })
+}
+
+module.exports = { upload, deleteFile, verifyImage, verifyPDFFile, uploadPath }

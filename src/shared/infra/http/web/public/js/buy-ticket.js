@@ -6,6 +6,7 @@ buyTicketForm.addEventListener('submit', e => {
     const data = new FormData();
     data.append('userId', buyTicketFomr.querySelector('[name=userId]').value.trim());
     data.append('eventId', buyTicketForm.querySelector("[name=eventId]").value.trim());
+    data.append('payment', buyTicketForm.querySelector("[name=payment]").value.trim());
     data.append('file', buyTicketForm.querySelector('input[type="file"]'));
 
     Swal.fire({

@@ -7,7 +7,7 @@ class BuyTicketUseCase {
         this.eventRepository = eventRepository;
     }
 
-    async execute({ payment, userId, eventId }) {
+    async execute({ payment, userId, eventId, bankReceiptDirectory }) {
         const tickets = await this.ticketRepository.findAllByEventId(eventId);
         const ticketsBought = tickets.length;
         const event = await this.eventRepository.findOneById(eventId);

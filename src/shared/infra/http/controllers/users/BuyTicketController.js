@@ -1,4 +1,5 @@
 const AppMessage = require("../../../../../config/AppMessage");
+const { verifyPDFFile } = require('../../../../../config/FileUpload');
 
 class BuyTicketController {
     constructor(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsByEventIdUseCase) {
@@ -25,12 +26,16 @@ class BuyTicketController {
 
     async handler(request, response) {
         const { eventId, userId, payment } = request.body;
+        const file = request.file;
 
         try {
+            await verifyPDFFile(file);
+
             await this.buyTicketUseCase.execute({
                 eventId,
                 userId,
-                payment
+                payment,
+                bankReceiptDirectory: file.filename
             });
         } catch (error) {
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
