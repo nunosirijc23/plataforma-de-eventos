@@ -3,6 +3,11 @@ const buyTicketForm = document.querySelector('#buyTicketForm');
 buyTicketForm.addEventListener('submit', e => {
     e.preventDefault();
 
+    const data = new FormData();
+    data.append('userId', buyTicketFomr.querySelector('[name=userId]').value.trim());
+    data.append('eventId', buyTicketForm.querySelector("[name=eventId]").value.trim());
+    data.append('file', buyTicketForm.querySelector('input[type="file"]'));
+
     Swal.fire({
         title: 'Comprar o bilhete?',
         showDenyButton: true,
@@ -17,11 +22,7 @@ buyTicketForm.addEventListener('submit', e => {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    eventId: buyTicketForm.querySelector("[name=eventId]").value.trim(),
-                    userId: buyTicketForm.querySelector('[name=userId]').value.trim(),
-                    payment: buyTicketForm.querySelector("[name=payment]").value.trim()
-                })
+                body: data
             })
                 .then(data => data.json())
                 .then(json => {

@@ -205,13 +205,14 @@
                                                 <input name="userId" type="hidden" value="<%= user.id %>">
                                                 <div class="form-group col-sm-4">
                                                     <label for="cc-payment" class="control-label mb-1">
-                                                        Método de pagamento
+                                                        Comprovativo de pagamento
                                                     </label>
-                                                    <select name="payment" class="form-control-sm form-control" required>
-                                                        <option selected disabled>--Escolha o método--</option>
-                                                        <option value="Multicaixa express">Multicaixa express</option>
-                                                        <option value="Referência">Referência</option>
-                                                    </select>
+                                                    <input type="file" name="bankReceipt"/>
+                                                </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="cc-payment" class="control-label mb-1">Observação</label>
+                                                    <textarea name="payment" type="text" row="5"
+                                                    class="form-control-sm form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,7 +221,7 @@
                                         <div>
                                             <button id="payment-button" type="submit"
                                                 class="btn btn-lg btn-info btn-block">
-                                                <span id="payment-button-amount">Pagar</span>
+                                                <span id="payment-button-amount">Enviar</span>
                                             </button>
                                         </div>
                                     </div>
