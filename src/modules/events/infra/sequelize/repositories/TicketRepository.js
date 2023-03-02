@@ -37,6 +37,18 @@ class TicketRepository extends ITicketRepository {
 
         return tickets;
     }
+
+    async approveTicket({ id, isApproved }) {
+        const ticket = await this.repository.update({
+            isApproved
+        }, { 
+            where: {
+                id
+            }
+        })
+
+        return ticket;
+    }
 }
 
 module.exports = TicketRepository;
