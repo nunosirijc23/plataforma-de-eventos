@@ -2,17 +2,17 @@ const AppMessage = require("../../../../../config/AppMessage");
 const { verifyPDFFile, deleteFile } = require('../../../../../config/FileUpload');
 
 class BuyTicketController {
-    constructor(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsByEventIdUseCase) {
+    constructor(findOneEventByIdUseCase, buyTicketUseCase, findAllTicketsBoughtByEventIdUseCase) {
         this.findOneEventByIdUseCase = findOneEventByIdUseCase;
         this.buyTicketUseCase = buyTicketUseCase;
-        this.findAllTicketsByEventIdUseCase = findAllTicketsByEventIdUseCase;
+        this.findAllTicketsBoughtByEventIdUseCase = findAllTicketsBoughtByEventIdUseCase;
     }
 
     async render(request, response) {
         const { id } = request.params;
         
         const event = await this.findOneEventByIdUseCase.execute(id);
-        const tickets = await this.findAllTicketsByEventIdUseCase.execute(id);
+        const ticketsBought = await this.findAllTicketsBoughtByEventIdUseCase.execute(id);
 
         return response.render('user/buy-ticket', {
             title: 'Comprar bilhete',
@@ -20,7 +20,7 @@ class BuyTicketController {
             search: false,
             user: request.session.user,            
             event,
-            totalTicketBought: tickets.length
+            totalTicketBought: ticketsBought.length
         })
     }
 
