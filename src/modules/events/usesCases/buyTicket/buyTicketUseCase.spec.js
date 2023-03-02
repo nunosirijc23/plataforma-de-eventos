@@ -64,7 +64,8 @@ describe("Buy Ticket Use Case", () => {
         const ticket = await buyTicketUseCase.execute({
             payment: "Multicaixa Express",
             eventId: event.id,
-            userId: user.id
+            userId: user.id, 
+            bankReceipt: "compravtivo.pdf",
         });
         expect(ticket).not.toBeUndefined();
     })
@@ -101,7 +102,8 @@ describe("Buy Ticket Use Case", () => {
         await buyTicketUseCase.execute({
             payment: "Multicaixa Express",
             eventId: event.id,
-            userId: user.id
+            userId: user.id,
+            bankReceipt: "compravtivo.pdf",
         });
 
         let thrownError = null;
@@ -110,7 +112,8 @@ describe("Buy Ticket Use Case", () => {
             await buyTicketUseCase.execute({
                 payment: "Multicaixa Express",
                 eventId: event.id,
-                userId: user.id
+                userId: user.id,
+                bankReceipt: "compravtivo.pdf",
             });
         } catch (error) {
             thrownError = error;
