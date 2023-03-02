@@ -18,4 +18,10 @@ describe('Ticket Repository MYSQL Test', () => {
 
         console.log(tickets);
     })
+
+    it('should be able to find tickets bought by event id', async () => {
+        const tickets = await ticketRepositoryMYSQL.findAllTicketsBoughtByEventId("15aa4501-e17d-496c-91a5-ebd0137891c8");
+
+        console.log(tickets);
+    })
 })

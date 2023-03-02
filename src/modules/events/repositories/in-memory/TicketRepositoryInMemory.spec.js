@@ -29,7 +29,7 @@ describe("Ticket Repository In Memory", () => {
         const producer = await producerRepositoryInMemory.create(new Producer("producer", "producer@spread.com", "12345"));
         const category = await categoryRepositoryInMemory.create(new Category("Workshop"));
         const event = await eventRepositoryInMemory.create(new Event("NLW", new Date(), new Date().getTime(), new Date().getTime(), 0, 1000, "Sao Paulo", "Avenida Paulista", "Avenida Paulista", "13", "", category.id, producer.id));
-        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id));
+        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id, "comprovativo.pdf", null));
         expect(ticket).not.toBeUndefined();
     })
 
@@ -38,7 +38,7 @@ describe("Ticket Repository In Memory", () => {
         const producer = await producerRepositoryInMemory.create(new Producer("producer", "producer@spread.com", "12345"));
         const category = await categoryRepositoryInMemory.create(new Category("Workshop"));
         const event = await eventRepositoryInMemory.create(new Event("NLW", new Date(), new Date().getTime(), new Date().getTime(), 0, 1000, "Sao Paulo", "Avenida Paulista", "Avenida Paulista", "13", "", category.id, producer.id));
-        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id));
+        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id, "comprovativo.pdf", null));
         const ticketsFetched = await ticketRepositoryInMemory.findAllByEventId(event.id);
         expect(ticketsFetched).toEqual([ticket]);
     })
@@ -49,8 +49,18 @@ describe("Ticket Repository In Memory", () => {
         const producer = await producerRepositoryInMemory.create(new Producer("producer", "producer@spread.com", "12345"));
         const category = await categoryRepositoryInMemory.create(new Category("Workshop"));
         const event = await eventRepositoryInMemory.create(new Event("NLW", new Date(), new Date().getTime(), new Date().getTime(), 0, 1000, "Sao Paulo", "Avenida Paulista", "Avenida Paulista", "13", "", category.id, producer.id));
-        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id));
+        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id, "comprovativo.pdf", null));
         const ticketsFetched = await ticketRepositoryInMemory.findAllByUserId(user.id);
+        expect(ticketsFetched).toEqual([ticket]);
+    })
+
+    it("should be able to find all tickets bought by event id", async () => {
+        const user = await userRepositoryInMemory.create(new User("User", "user@spread.com", 945206208, "123456"));
+        const producer = await producerRepositoryInMemory.create(new Producer("producer", "producer@spread.com", "12345"));
+        const category = await categoryRepositoryInMemory.create(new Category("Workshop"));
+        const event = await eventRepositoryInMemory.create(new Event("NLW", new Date(), new Date().getTime(), new Date().getTime(), 0, 1000, "Sao Paulo", "Avenida Paulista", "Avenida Paulista", "13", "", category.id, producer.id));
+        const ticket = await ticketRepositoryInMemory.create(new Ticket("Multicaixa Express", user.id, event.id, "comprovativo.pdf", true));
+        const ticketsFetched = await ticketRepositoryInMemory.findAllByEventId(event.id);
         expect(ticketsFetched).toEqual([ticket]);
     })
 })

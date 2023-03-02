@@ -18,6 +18,10 @@ class TicketRepositoryInMemory extends ITicketRepository {
     async findAllByUserId(userId) {
         return this.tickets.filter(ticket => ticket.userId === userId);
     }
+
+    async findAllTicketsBoughtByEventId(eventId) {
+        return this.tickets.filter(ticket => ticket.eventId === eventId && ticket.isApproved===true);
+    }
 }
 
 module.exports = TicketRepositoryInMemory;
