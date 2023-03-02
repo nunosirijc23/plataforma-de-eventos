@@ -150,7 +150,7 @@
                                                 <td><%= ticket.name %></td>
                                                 <td><%= ticket.phone %></td>
                                                 <td><%= ticket.payment %></td>
-                                                <td><a href="">Descarregar</a></td>
+                                                <td><a href="/images/<%=ticket.bankReceiptDirectory%>" download>Descarregar</a></td>
                                                 <td>
                                                     <% if ( ticket.isApproved == null ) { %>
                                                     <div class="table-data-feature">
