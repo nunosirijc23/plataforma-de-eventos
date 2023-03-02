@@ -23,6 +23,7 @@ const EventController = require('../controllers/producer/EventController');
 const TicketRepository = require('../../../../modules/events/infra/sequelize/repositories/TicketRepository');
 const TicketRepositoryMYSQL = require('../../../../modules/events/infra/mysql/repositories/TicketRepositoryMYSQL');
 const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsByEventId/findAllTicketsByEventIdUseCase');
+const FindAllTicketsBoughtByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsBoughtByEventId/findAllTicketsBoughtByEventId');
 const UpdateProducerDataUseCase = require('../../../../modules/producer/useCases/updateProducerData/updateProducerDataUseCase');
 const ChangeProducerPasswordUseCase = require('../../../../modules/producer/useCases/changeProducerPassword/changeProducerPasswordUseCase');
 
@@ -41,6 +42,7 @@ let createEventUseCase = new CreateEventUseCase(eventRepository);
 let updateEventUseCase = new UpdateEventUseCase(eventRepository);
 let updateEventPhotoUseCase = new UpdateEventPhotoUseCase(eventRepository);
 let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRepositoryMYSQL);
+let findAllTicketsBoughtByEventIdUseCase = new FindAllTicketsBoughtByEventIdUseCase(ticketRepositoryMYSQL);
 const updateProducerDataUseCase = new UpdateProducerDataUseCase(producerRepository);
 const changeProducerPasswordUseCase = new ChangeProducerPasswordUseCase(producerRepository);
 
@@ -48,7 +50,7 @@ let registerController = new RegisterController(createProducerUseCase);
 let loginController = new LoginController(authenticateProducerUseCase);
 let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase, updateProducerDataUseCase, changeProducerPasswordUseCase);
 let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase, updateEventUseCase, updateEventPhotoUseCase);
-let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase);
+let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase, findAllTicketsBoughtByEventIdUseCase);
 
 const producer = Router();
 
