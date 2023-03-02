@@ -33,6 +33,18 @@ class TicketRepositoryMYSQL extends ITicketRepository {
             })
         })
     }
+
+    findAllTicketsBoughtByEventId(eventId) {
+        return new Promise((resolve, reject) => {
+            this.repository.query(`SELECT users.name, users.photo, users.phone, tickets.id, tickets.payment, tickets.isApproved, tickets.bankReceiptDirectory FROM tickets INNER JOIN users ON tickets.userId = users.id WHERE isApproved=true AND eventId=?`, [eventId], (error, results) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    resolve(results);
+                }
+            });
+        })
+    }
 }
 
 module.exports = TicketRepositoryMYSQL;
