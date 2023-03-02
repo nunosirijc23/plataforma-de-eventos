@@ -84,7 +84,7 @@
                                                             </div>
                                                         </td>
                                                         <td><a href="/producers/event/<%= events[0].id %>"><%= events[0].name %></a></td>
-                                                        <td><%= events[0].date %></td>
+                                                        <td><%= new Date(events[0].date).toLocaleDateString('pt-PT', {}) %></td>
                                                         <% let startTime = events[0].startTime.split(":")[0] + ":" + events[0].startTime.split(":")[1]%> 
                                                         <% let endTime = events[0].endTime.split(":")[0] + ":" + events[0].endTime.split(":")[1]%> 
                                                         <td><%= startTime %> às <%= endTime %></td>

@@ -5,7 +5,7 @@ class MyTicketsController {
 
     async render(request, response) {
         const tickets = await this.findAllTicketsByUserIdUseCase.execute(request.session.user.id);
-
+    
         response.render('user/my-tickets', {
             title: 'Meus bilhetes',
             isIndex: false,

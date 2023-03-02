@@ -43,22 +43,30 @@
                                                         <%= ticket.name %>
                                                     <% } %> 
                                                 </td>
-                                                <td><%= ticket.date %></td>
+                                                <td><%= new Date(ticket.date).toLocaleDateString('pt-PT', {}) %></td>
                                                 <td>
                                                     <% if ( dateNow < eventDate ) { %> 
-                                                    <span class="role member">Válido</span>
+                                                        <% if (ticket.isApproved == null) { %>
+                                                            <span class="role user">Pendente</span>
+                                                        <% } else if (ticket.isApproved == true) { %>
+                                                            <span class="role member">Aprovado</span>
+                                                        <% } else {%>
+                                                            <span class="role admin">Inválido</span>
+                                                        <% } %>  
                                                     <% } else { %>
                                                     <span class="role admin">Inválido</span>
                                                     <% } %> 
                                                 </td>
                                                 <td><%= ticket.price %> Akz</td>
                                                 <% if ( dateNow < eventDate ) { %> 
+                                                <% if (ticket.isApproved == true) { %>
                                                 <td>
                                                     <button class="item downloadTicket" data-toggle="tooltip" data-placement="top"
                                                     title="Baixar o bilhete">
                                                         <i class="fa fa-arrow-circle-down" aria-hidden="true"></i>
                                                     </button>
                                                 </td>
+                                                <% } %>
                                                 <% } %>
                                             </tr>
                                             <tr class="spacer"></tr>
