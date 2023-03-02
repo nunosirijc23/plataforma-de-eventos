@@ -3,6 +3,7 @@ class ITicketRepository {
     findAllByEventId(eventId) {}
     findAllByUserId(userId) {}
     findAllTicketsBoughtByEventId(eventId) {}
+    approveTicket({ id, isApproved }) {}
 }
 
 module.exports = ITicketRepository;
