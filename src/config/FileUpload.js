@@ -46,7 +46,7 @@ function verifyPDFFile(file) {
         const extension = path.extname(file.originalname);
         
         if (extension !== '.pdf') {
-            throw new AppErrorException('Formato do ficheiro não suportado!', true);
+            throw new AppErrorException('Formato do ficheiro inválido!', true);
         }
 
         resolve(true);

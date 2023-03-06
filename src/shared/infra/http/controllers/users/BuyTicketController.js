@@ -38,12 +38,12 @@ class BuyTicketController {
                 bankReceiptDirectory: file.filename
             });
         } catch (error) {
-            await deleteFile(file)
+            await deleteFile(file.filename)
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }
 
-        return new AppMessage("Bilhete comprado!", false);
+        return new AppMessage("Pedido de compra feito com sucesso!", false);
     }
 }
 

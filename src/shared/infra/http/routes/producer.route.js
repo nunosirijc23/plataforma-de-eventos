@@ -26,6 +26,8 @@ const FindAllTicketsByEventIdUseCase = require('../../../../modules/events/usesC
 const FindAllTicketsBoughtByEventIdUseCase = require('../../../../modules/events/usesCases/findAllTicketsBoughtByEventId/findAllTicketsBoughtByEventId');
 const UpdateProducerDataUseCase = require('../../../../modules/producer/useCases/updateProducerData/updateProducerDataUseCase');
 const ChangeProducerPasswordUseCase = require('../../../../modules/producer/useCases/changeProducerPassword/changeProducerPasswordUseCase');
+const ApproveTicketUseCase = require('../../../../modules/events/usesCases/approveTicket/approveTicketUseCase');
+const ValidateTicketController = require('../controllers/producer/ValidateTicketController');
 
 let producerRepository = new ProducerRepository();
 let categoryRepository = new CategoryRepository();
@@ -45,12 +47,14 @@ let findAllTicketsByEventIdUseCase = new FindAllTicketsByEventIdUseCase(ticketRe
 let findAllTicketsBoughtByEventIdUseCase = new FindAllTicketsBoughtByEventIdUseCase(ticketRepositoryMYSQL);
 const updateProducerDataUseCase = new UpdateProducerDataUseCase(producerRepository);
 const changeProducerPasswordUseCase = new ChangeProducerPasswordUseCase(producerRepository);
+const approveTicketUseCase = new ApproveTicketUseCase(ticketRepository);
 
 let registerController = new RegisterController(createProducerUseCase);
 let loginController = new LoginController(authenticateProducerUseCase);
 let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase, updateProducerDataUseCase, changeProducerPasswordUseCase);
 let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase, updateEventUseCase, updateEventPhotoUseCase);
 let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase, findAllTicketsBoughtByEventIdUseCase);
+let validateTicketController = new ValidateTicketController(approveTicketUseCase);
 
 const producer = Router();
 
@@ -176,6 +180,21 @@ producer.patch('/changePassword', async (request, response) => {
         });
     }    
 }) // PUT UPDATE USER PASSWORD
+
+producer.patch('/validate-ticket', async (request, response) => {
+    const appMessage = await validateTicketController.handler(request, response);
+
+    if (appMessage.isError) {
+        return response.json({
+            error: appMessage.message,
+            info: true
+        });
+    } else {
+        return response.json({
+            message: appMessage.message
+        });
+    }  
+})
 
 
 module.exports = producer;
