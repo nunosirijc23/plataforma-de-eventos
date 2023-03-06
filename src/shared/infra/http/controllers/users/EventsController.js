@@ -63,7 +63,7 @@ class EventsController {
             delete user.password;
             request.session.user = user;
         } catch (error) {
-            await deleteFile(file.filename);
+            if (file) await deleteFile(file.filename);
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }

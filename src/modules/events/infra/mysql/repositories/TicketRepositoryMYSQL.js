@@ -24,7 +24,7 @@ class TicketRepositoryMYSQL extends ITicketRepository {
 
     findAllByUserId(userId) {
         return new Promise((resolve, reject) => {
-            this.repository.query(`SELECT events.id, events.name, events.photo, events.date, events.price, tickets.isApproved FROM tickets INNER JOIN events ON tickets.eventId = events.id WHERE userId=? ORDER BY events.date DESC`, [userId], (error, results) => {
+            this.repository.query(`SELECT events.id, events.name, events.photo, events.date, events.startTime, events.price, tickets.isApproved FROM tickets INNER JOIN events ON tickets.eventId = events.id WHERE userId=? ORDER BY events.date DESC`, [userId], (error, results) => {
                 if (error) {
                     console.log(error);
                 } else {

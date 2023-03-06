@@ -103,7 +103,7 @@ class MyEventsController {
     async handlerUpdatePhoto(request, response) {
         const file = request.file;
         const { id } = request.body;
-
+   
         try {
             await verifyImage(file);
             await this.updateEventPhotoUseCase.execute({
@@ -111,7 +111,7 @@ class MyEventsController {
                 eventId: id
             });
         } catch (error) {
-            await deleteFile(file.filename);
+            if (file) await deleteFile(file.filename);
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
         }

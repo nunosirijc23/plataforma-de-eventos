@@ -30,13 +30,14 @@ async function deleteFile(filename) {
 
 function verifyImage(file) {
     return new Promise((resolve, reject) => {
-        if (['image/png', 'image/jpeg', 'image/jpg'].indexOf(file.mimetype) <= -1) {
-            throw new AppErrorException('Formato da imagem não suportado!', true);
+        if (file) {
+            if (['image/png', 'image/jpeg', 'image/jpg'].indexOf(file.mimetype) <= -1) {
+                throw new AppErrorException('Formato da imagem não suportado!', true);
+            }
+        } else {
+            throw new AppErrorException('Insere a imagem!', true);
         }
 
-        // if (file.size > 5242880) {
-        //     reject('Só é permitido imagem de 5mb no máximo!')
-        // }
         resolve(true)
     });
 } // verifyImage
