@@ -65,7 +65,7 @@ describe("Buy Ticket Use Case", () => {
             payment: "Multicaixa Express",
             eventId: event.id,
             userId: user.id, 
-            bankReceipt: "compravtivo.pdf",
+            bankReceiptDirectory: "compravtivo.pdf",
         });
         expect(ticket).not.toBeUndefined();
     })
@@ -103,7 +103,7 @@ describe("Buy Ticket Use Case", () => {
             payment: "Multicaixa Express",
             eventId: event.id,
             userId: user.id,
-            bankReceipt: "compravtivo.pdf",
+            bankReceiptDirectory: "compravtivo.pdf",
         });
 
         let thrownError = null;
