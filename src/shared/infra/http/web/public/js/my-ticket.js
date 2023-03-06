@@ -2,7 +2,7 @@ const btnDownloadTicket = document.querySelectorAll('.downloadTicket');
 
 btnDownloadTicket.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        let tr = e.path.find(path => {
+        let tr = e.composedPath().find(path => {
             return (path.tagName.toUpperCase() == 'TR')
         });
 

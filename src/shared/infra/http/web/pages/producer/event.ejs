@@ -141,7 +141,7 @@
                                                 <tr>Sem bilhetes comprados</tr>
                                             <% } else { %> 
                                             <% tickets.forEach( ticket => { %>  
-                                            <tr class="tr-shadow">
+                                            <tr class="tr-shadow" data-row="<%= JSON.stringify(ticket) %>">
                                                 <td>
                                                     <div class="image img-40">
                                                         <img src="/images/<%= ticket.photo %>" alt="<%= ticket.name %>" />
@@ -154,11 +154,11 @@
                                                 <td>
                                                     <% if ( ticket.isApproved == null ) { %>
                                                     <div class="table-data-feature">
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item approveTicket" data-toggle="tooltip" data-placement="top"
                                                             title="Aprovar">
                                                             <i class="fa fa-check" aria-hidden="true"></i>
                                                         </button>
-                                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        <button class="item rejectTicket" data-toggle="tooltip" data-placement="top"
                                                             title="Rejeitar">
                                                             <i class="fa fa-times" aria-hidden="true"></i>
                                                         </button>
@@ -182,3 +182,4 @@
         <!-- END PAGE CONTAINER-->
     </div>
 <%- include('./../inc/shared/footer') -%>
+<script src="/js/event-producer.js"></script>

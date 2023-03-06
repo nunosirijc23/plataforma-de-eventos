@@ -61,7 +61,7 @@ createEventForm.addEventListener("submit", (e) => {
 
 tableUpdateElements.forEach( element => {
     element.addEventListener('click', e => {
-        let tr = e.path.find(path => {
+        let tr = e.composedPath().find(path => {
             return (path.tagName.toUpperCase() == 'TR')
         });
 
@@ -135,7 +135,7 @@ updateEventForm.addEventListener("submit", (e) => {
 
 tablePhotoElements.forEach( element => {
     element.addEventListener('click', e => {
-        let tr = e.path.find(path => {
+        let tr = e.composedPath().find(path => {
             return (path.tagName.toUpperCase() == 'TR')
         });
 
