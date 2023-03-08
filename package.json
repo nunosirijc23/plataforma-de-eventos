@@ -6,7 +6,7 @@
   "author": "Nuno Miguel Mvemba <nunosirijc23@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:dev": "nodemon --trace-warnings ./src/shared/infra/http/server.js",
+    "start:dev": "nodemon --trace-warnings ./src/shared/infra/http/app.js",
     "migration:create": "sequelize-cli migration:generate",
     "migration:run": "sequelize-cli db:migrate",
     "migration:revert": "sequelize-cli db:migrate:undo",

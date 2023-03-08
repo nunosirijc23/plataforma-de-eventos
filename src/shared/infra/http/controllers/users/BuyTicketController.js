@@ -25,6 +25,7 @@ class BuyTicketController {
     }
 
     async handler(request, response) {
+        const io = request.io;
         const { eventId, userId, payment } = request.body;
         const file = request.file;
 
@@ -36,6 +37,11 @@ class BuyTicketController {
                 userId,
                 payment,
                 bankReceiptDirectory: file.filename
+            });
+
+            io.emit('buy-ticket', {
+                eventId,
+                userId
             });
         } catch (error) {
             await deleteFile(file.filename)
