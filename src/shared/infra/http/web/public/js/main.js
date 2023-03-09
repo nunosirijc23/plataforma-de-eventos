@@ -1670,11 +1670,32 @@
 })(jQuery);
 
 var socket = io.connect();
+const producerDataElement = document.querySelector("#producer-data");
 
-socket.on("message", (message) => {
-  console.log(message);
+socket.on("message", _ => {
+  if (Notification.permission === "default" || Notification.permission === "denied") {
+    Notification.requestPermission().then( permission => {
+      if (permission === "default" || permission === "denied") {
+        alert('As notificações devem estar activadas, para uma melhor experiência na plataforma!')
+      }
+    }).catch( error => {
+      console.log("Error: ", error);
+    })
+  }
 });
 
 socket.on("buy-ticket", (data) => {
-  console.log(data)
+  const producerData = JSON.parse(producerDataElement.dataset.row);
+  let notification = null;
+
+  if (producerData.id === data.event.producerId) {
+    notification = new Notification("Pedido de compra de bilhetes", {
+      body: `Evento: ${data.event.name}\nCliente: ${data.user.name}`
+  });
+  }
+
+  notification.onclick = (event) => {
+    event.preventDefault();
+    window.open(`http://localhost:3333/producers/event/${data.event.id}`);
+  }
 });

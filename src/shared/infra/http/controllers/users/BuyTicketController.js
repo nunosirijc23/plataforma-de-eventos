@@ -28,6 +28,7 @@ class BuyTicketController {
         const io = request.io;
         const { eventId, userId, payment } = request.body;
         const file = request.file;
+        const user = request.session.user;
 
         try {
             await verifyPDFFile(file);
@@ -39,9 +40,11 @@ class BuyTicketController {
                 bankReceiptDirectory: file.filename
             });
 
+            const event = await this.findOneEventByIdUseCase.execute(eventId);
+
             io.emit('buy-ticket', {
-                eventId,
-                userId
+                event,
+                user
             });
         } catch (error) {
             await deleteFile(file.filename)
