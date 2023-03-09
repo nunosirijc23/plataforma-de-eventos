@@ -24,4 +24,10 @@ describe('Ticket Repository MYSQL Test', () => {
 
         console.log(tickets);
     })
+
+    it('should be able to find one ticket by id', async () => {
+        const tickets = await ticketRepositoryMYSQL.findOneTicketById("f0d0b30d-cd46-4f06-9b1c-28941a360c52");
+
+        console.log(tickets);
+    })
 })

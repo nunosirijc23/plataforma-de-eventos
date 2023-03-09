@@ -45,6 +45,18 @@ class TicketRepositoryMYSQL extends ITicketRepository {
             });
         })
     }
+
+    findOneTicketById(id) {
+        return new Promise((resolve, reject) => {
+            this.repository.query(`SELECT * FROM tickets WHERE tickets.id=?`, [id], (error, results) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    resolve(results);
+                }
+            });
+        })
+    }
 }
 
 module.exports = TicketRepositoryMYSQL;

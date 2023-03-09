@@ -4,6 +4,7 @@ class ITicketRepository {
     findAllByUserId(userId) {}
     findAllTicketsBoughtByEventId(eventId) {}
     approveTicket({ id, isApproved }) {}
+    findOneTicketById(id) {}
 }
 
 module.exports = ITicketRepository;

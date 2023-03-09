@@ -31,6 +31,11 @@ class TicketRepositoryInMemory extends ITicketRepository {
         this.tickets.push(ticket);
         return ticket;
     }
+
+    async findOneTicketById(id) {
+        const ticket = this.tickets.find( ticket => ticket.id === id );
+        return ticket;
+    }
 }
 
 module.exports = TicketRepositoryInMemory;

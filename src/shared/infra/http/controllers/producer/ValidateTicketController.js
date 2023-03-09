@@ -6,10 +6,15 @@ class ValidateTicketController {
     }
     
     async handler(request, response) {
+        const io = request.io;
         const { id, isApproved } = request.body;
 
         try {
             await this.approveTicketUseCase.execute({ id, isApproved });
+
+            io.emit('validate-ticket', {
+                
+            });
         } catch (error) {
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);
             return new AppMessage(error.message, true);
