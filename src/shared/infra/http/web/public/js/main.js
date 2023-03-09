@@ -1671,6 +1671,7 @@
 
 var socket = io.connect();
 const producerDataElement = document.querySelector("#producer-data");
+const userDataElement = document.querySelector("#user-data");
 
 socket.on("message", _ => {
   if (Notification.permission === "default" || Notification.permission === "denied") {
@@ -1699,3 +1700,13 @@ socket.on("buy-ticket", (data) => {
     window.open(`http://localhost:3333/producers/event/${data.event.id}`);
   }
 });
+
+socket.on("validate-ticket", (data) => {
+  const userData = JSON.parse(userDataElement.dataset.row);
+
+  if (userData.id === data.ticket[0].userId) {
+    new Notification("Validação da compra do bilhete", {
+      body: `Status: ${data.approved}`
+    });
+  }
+})

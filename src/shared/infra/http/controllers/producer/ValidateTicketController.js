@@ -1,8 +1,9 @@
 const AppMessage = require('../../../../../config/AppMessage');
 
 class ValidateTicketController {
-    constructor(approveTicketUseCase) {
+    constructor(approveTicketUseCase, findOneTicketByIdUseCase) {
         this.approveTicketUseCase = approveTicketUseCase;
+        this.findOneTicketByIdUseCase = findOneTicketByIdUseCase;
     }
     
     async handler(request, response) {
@@ -11,9 +12,11 @@ class ValidateTicketController {
 
         try {
             await this.approveTicketUseCase.execute({ id, isApproved });
+            const ticket = await this.findOneTicketByIdUseCase.execute(id);
 
             io.emit('validate-ticket', {
-                
+                ticket,
+                approved: (isApproved) ? 'Aprovado' : "Rejeitado",
             });
         } catch (error) {
             if (!error.isKnownError) return new AppMessage("Ocorreu um problema no servidor, tente mais tarde...", true);

@@ -27,6 +27,7 @@ const FindAllTicketsBoughtByEventIdUseCase = require('../../../../modules/events
 const UpdateProducerDataUseCase = require('../../../../modules/producer/useCases/updateProducerData/updateProducerDataUseCase');
 const ChangeProducerPasswordUseCase = require('../../../../modules/producer/useCases/changeProducerPassword/changeProducerPasswordUseCase');
 const ApproveTicketUseCase = require('../../../../modules/events/usesCases/approveTicket/approveTicketUseCase');
+const FindOneTicketByIdUseCase = require('../../../../modules/events/usesCases/findOneTicketById/findOneTicketByIdUseCase');
 const ValidateTicketController = require('../controllers/producer/ValidateTicketController');
 
 let producerRepository = new ProducerRepository();
@@ -48,13 +49,14 @@ let findAllTicketsBoughtByEventIdUseCase = new FindAllTicketsBoughtByEventIdUseC
 const updateProducerDataUseCase = new UpdateProducerDataUseCase(producerRepository);
 const changeProducerPasswordUseCase = new ChangeProducerPasswordUseCase(producerRepository);
 const approveTicketUseCase = new ApproveTicketUseCase(ticketRepository);
+const findOneTicketByIdUseCase = new FindOneTicketByIdUseCase(ticketRepositoryMYSQL);
 
 let registerController = new RegisterController(createProducerUseCase);
 let loginController = new LoginController(authenticateProducerUseCase);
 let dashboardController = new DashboardController(findAllEventsByProducerIdUseCase, updateProducerDataUseCase, changeProducerPasswordUseCase);
 let myEventsController = new MyEventsController(findAllEventsByProducerIdUseCase, findAllCategoriesUseCase, createEventUseCase, updateEventUseCase, updateEventPhotoUseCase);
 let eventController = new EventController(findOneEventByIdUseCase, findAllTicketsByEventIdUseCase, findAllTicketsBoughtByEventIdUseCase);
-let validateTicketController = new ValidateTicketController(approveTicketUseCase);
+let validateTicketController = new ValidateTicketController(approveTicketUseCase, findOneTicketByIdUseCase);
 
 const producer = Router();
 
